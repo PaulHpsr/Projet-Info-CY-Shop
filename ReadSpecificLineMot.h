@@ -1,13 +1,14 @@
 #include <stdio.h>
 #include <stdbool.h>
+#include <string.h>
 #define FILENAME_SIZE 1024
 #define MAX_LINE 30
 
-
+int len;
 const char* ReadLine(int read_line, char nomfile[])
 {
   FILE *file;
-  char buffer[100];
+  char buffer[30];
 char *buff;
   file = fopen(nomfile,"r");
 if(file ==NULL){
@@ -23,7 +24,10 @@ int current_line =1;
       }
       else if(current_line==read_line){
         keep_reading = false;
-        buff= buffer;
+        len = strlen(buffer);
+         if (buffer[len-1] == '\n')
+         buffer[len-1] = 0;
+        buff = buffer;
         return buff;
       }
       current_line++;

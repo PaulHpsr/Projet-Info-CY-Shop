@@ -361,57 +361,49 @@ int id;
 int chmodif;
 int modif;
 FILE *file, *temp;
+
   char filename[FILENAME_SIZE];
   char temp_filename[FILENAME_SIZE];
 
   char buffer[MAX_LINE];
   char replace[MAX_LINE];
   int replace_line = 0;
-printf("ID: \n");
-scanf("%d",&id);
 
-printf("\n1.PRIX\n2.QTY\n");
-scanf("%d",&chmodif);
-if(chmodif ==1){
-  modif=3;
-}
-  else if(chmodif == 2){
-    modif =4;
-  }
-  else{
-    printf("Erreur");
-   return -1; 
-  }
-replace_line=id*modif; 
-printf("Nouvelle valeur:\n");
-scanf("%s",replace);
-file = fopen(fproduct,"r");
-temp = fopen("temp.txt","w");
+  
 
-if(file == NULL || temp == NULL){
-  printf("Erreur");
-  return -1;
-}
+  strcpy(temp_filename, "temp");
+  strcat(temp_filename, fproduct);
+
+  printf("Replace Line:\n");
+  scanf("%d", &replace_line);
+
+  fflush(stdin);
+  printf("New line text:\n");
+  scanf("%s", replace);
+
+  file = fopen(fproduct, "r");
+  temp = fopen(temp_filename, "w");
+
   bool keep_reading = true;
   int current_line = 1;
-  do{
-    fgets(buffer,MAX_LINE,file);
-
-    if(feof(file)){
-      keep_reading =false;
-    }
-    else if(current_line == replace_line){
-      fputs(replace,temp);
-    }
-    else{
+  do {
+    fgets(buffer, MAX_LINE, file);
+    if (feof(file)) {
+      keep_reading = false;
+    } else if (current_line == replace_line) {
+      fputs(replace, temp);
+      fputc('\n', temp); // Ajout du caractère de fin de ligne
+    } else {
       fputs(buffer, temp);
     }
-  }while(keep_reading);
+    current_line++;
+  } while (keep_reading);
+
   fclose(file);
   fclose(temp);
-  remove("product.txt");
-  rename("temp.txt", "product.txt");
-  
+  remove(fproduct);
+  rename(temp_filename, fproduct);
+  return 0;
 }
 
 int findProduct(){

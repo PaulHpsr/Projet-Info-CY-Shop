@@ -492,7 +492,14 @@ FILE *fstock_max = fopen(fstock,"r");
 int stockact;
   int stock_base;
   int place_stck;
+    stockact = atoi(ReadLine(1, fstock));
+    int add_stck;
+    int stockact_interm=0;
+    int qty_init_intermediaire=0;
+    int qty_init= atoi(ReadLine(5+(6*id), fproduct));
 
+
+  printf("\nQTY INIT 1 : %d",qty_init);
   if (file == NULL) {
     printf("\nErreur lors de l'ouverture du fichier.\n");
     printf("\nFichier manquant\n");
@@ -538,12 +545,8 @@ int stockact;
   printf("\nChangement:\n");
   scanf("%s", replace);
   int replace1 = atoi(replace);
-  stockact = atoi(ReadLine(1, fstock));
-    int add_stck;
-    int stockact_interm=0;
-    int qty_init_intermediaire=0;
-    int qty_init= atoi(ReadLine(5+(6*id), fproduct));
-    printf("\n%d",qty_init);
+    
+     fclose(fstock_max);
     place_stck = atoi(ReadLine(6+(6*id), fproduct));
   stock_base += (place_stck) * (replace1);
   if (stock_base > stockact) {

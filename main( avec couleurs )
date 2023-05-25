@@ -429,7 +429,7 @@ void addProduct() {
 
 // Afficher les produits
 void displayAllProduct() {
-  int MAX_LENGTH = 30;
+  int MAX_LENGTH = 100;
   FILE *fichier = fopen(fproduct, "r");
 
   if (fichier == NULL) {
@@ -508,7 +508,6 @@ int updateProduct() {
   int qty_init_intermediaire = 0;
   int qty_init = atoi(ReadLine(5 + (6 * id), fproduct));
 
-  printf("\nQTY INIT 1 : %d", qty_init);
   if (file == NULL) {
     printf("\nErreur lors de l'ouverture du fichier.\n");
     printf("\nFichier manquant\n");
@@ -587,10 +586,7 @@ int updateProduct() {
         fprintf(fstock_max, "%d", stockact_interm);
       }
       replace_line = 5 * id;
-      printf("\nQTY_init : %d", qty_init);
-      printf("\nadd_stck : %d", add_stck);
-      printf("\nQTY_INIT_interm : %d", qty_init_intermediaire);
-      printf("\nSTOCKACT_INTERM : %d", stockact_interm);
+
       fclose(fstock_max);
     }
   } else {
@@ -643,7 +639,7 @@ void updatePRODUCTAchat(int id, int nouvQty) {
 
   replace_line = 5 + (6 * id);
   sprintf(replace, "%d", nouvQty);
-  printf("\n\n\t REPLACE : %s", replace);
+  
 
   file = fopen(fproduct, "r");
   temp = fopen(temp_filename, "w");
@@ -687,7 +683,7 @@ void majProductachat() {
                 place) == 6) {
     compt++;
   }
-  printf("\n\n\tCOMPTE : %d", compt);
+
   int prod_id;
   int prod_qty;
   int prod_place_stck;
@@ -705,11 +701,10 @@ void majProductachat() {
     prod_place_stck = atoi(ReadLine(6 + (6 * i), nom_panier));
     place_stck = place_stck + (prod_qty * prod_place_stck);
 
-    printf("\n\n\tPROD : %d %d %d\nSTOCKEN+ : %d", prod_id, prod_qty,
-           prod_place_stck, place_stck);
+
     prod_id = prod_id - 1;
     nouv_qty = atoi(ReadLine(5 + (6 * prod_id), fproduct)) - prod_qty;
-    printf("\n\n\tNOUV QTY PROD : %d", nouv_qty);
+  
     updatePRODUCTAchat(prod_id, nouv_qty);
   }
 
@@ -1256,10 +1251,7 @@ int prixfinal() {
     qty_item = atoi(ReadLine(5 + (6 * i), nom_panier));
     prix_tot = prix_tot + (qty_item * prix_item);
   }
-  printf("\nCOUNT : %d", count);
-  printf("\nPRIX ITEM : %d", prix_item);
-  printf("\nQTY ITEM : %d", qty_item);
-  printf("\nTOT : %d", prix_tot);
+
   fclose(fichier);
   return prix_tot;
 }

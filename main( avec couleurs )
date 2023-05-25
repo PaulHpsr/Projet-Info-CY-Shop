@@ -726,18 +726,17 @@ void majProductachat() {
 
 // Afficher tous les utilisateurs//Admin
 void displayAllUsers() {
-  char fname[30];
+  char fname[100];
   DIR *d;
   printf("\nVoici la liste des comptes utilisateurs enregistrés:\n");
   struct dirent *dir;
   d = opendir(".");
   if (d) {
-    while ((dir = readdir(d)) !=
-           NULL) // Tant qu'il reste des fichiers non vérif
+    while ((dir = readdir(d)) !=NULL) // Tant qu'il reste des fichiers non vérif
     {
       strcpy(fname, dir->d_name);
-      for (int i = 0; i < fname[i] != '\0'; i++) {
-        if (t_email[i] == '@') {
+      for (int i = 0; fname[i] != '\0'; i++) {
+        if (fname[i] == '@') {
           printf("\n\t%s\n", fname);
         }
       }
@@ -826,7 +825,6 @@ int modifUsers() {
 }
 // Interface Manage Client//admin
 void manageUsers() {
-  system("clear");
   int ch;
   int back = 0;
   while (1) {
@@ -1128,7 +1126,7 @@ void openhistorique() {
   char id[30], nom[30], prix[30], taille[30], quantite[30], place[30];
   while (fscanf(historique, "%s %s %s %s %s %s", id, nom, prix, taille,
                 quantite, place) == 6) {
-    printf("%s\t%s\t%s\t%s\t\t%s\n", id, nom, prix, taille, quantite);
+    printf("%s\t%s\t%s\t\t\t%s\t%s\n", id, nom, prix, taille, quantite);
   }
 
   fclose(historique);

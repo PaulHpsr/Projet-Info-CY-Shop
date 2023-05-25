@@ -7,13 +7,13 @@
 #include <string.h>
 #include <time.h>
 // Bibliothèques
-char email[30];
+char email[100];
 int f;
 // Structures
 
 typedef struct {
-  char name[20];
-  char prenom[30];
+  char name[100];
+  char prenom[100];
   int age;
   char password[100];
   char email[100];
@@ -21,7 +21,7 @@ typedef struct {
 
 typedef struct {
   int id;
-  char name[20];
+  char name[100];
   int price;
   int qty;
   char taille;
@@ -238,8 +238,8 @@ int login() {
   FILE *fc;
   int count = 0;
   char email2[5] = ".txt";
-  char pasword[30];
-  char pasword2[30];
+  char pasword[100];
+  char pasword2[100];
   printf("\n\n\t=================Connexion à CY-SHOP=================\n\n");
   printf("\n\nLOGIN\n\n");
   printf("\t Entrez votre Email: ");
@@ -623,9 +623,9 @@ int updateProduct() {
 void updatePRODUCTAchat(int id, int nouvQty) {
   FILE *file = fopen(fproduct, "r"), *temp;
   ;
-  char temp_filename[50];
+  char temp_filename[100];
   char buffer[MAX_LINE];
-  char replace[50];
+  char replace[100];
   int replace_line = 0;
 
   if (file == NULL) {
@@ -668,7 +668,7 @@ void updatePRODUCTAchat(int id, int nouvQty) {
 // Update du stock prod lorsque on achète
 void majProductachat() {
   int compt = 0;
-  char nom_panier[50];
+  char nom_panier[100];
   strcpy(nom_panier, email);
   strcat(nom_panier, "_panier.txt");
   FILE *panier = fopen(nom_panier, "r");
@@ -678,7 +678,7 @@ void majProductachat() {
   }
 
   // CONNAITRE CB DE PROD DANS L'HISTORIQUE
-  char id[30], nom[30], prix[30], taille[30], quantite[30], place[30];
+  char id[100], nom[100], prix[100], taille[100], quantite[100], place[100];
   while (fscanf(panier, "%s %s %s %s %s %s", id, nom, prix, taille, quantite,
                 place) == 6) {
     compt++;
@@ -857,7 +857,7 @@ void manageUsers() {
 
 // Interface Client
 int modifMesInfos() {
-  int MAX_LENGTH = 30;
+  int MAX_LENGTH = 100;
   char nom[MAX_LENGTH];
   char prenom[MAX_LENGTH];
   char age[MAX_LENGTH];
@@ -958,12 +958,12 @@ void Creapanier() {
   int choix_ach;
   FILE *panier;
 
-  char nom_panier[50];
+  char nom_panier[100];
   int ID_prod;
   int aqty_achat;
-  char anom_prod[30];
+  char anom_prod[100];
   int aprice_prod;
-  char ataille_prod[30];
+  char ataille_prod[100];
   int aqty_prod;
   int aplace_stck_prod;
   int aid_prod;
@@ -1070,13 +1070,13 @@ void purchaseProduct() {
 
 // copier les produits du panier dans lhistorique
 void finalachat() {
-  char nom_panier[50];
+  char nom_panier[100];
   strcpy(nom_panier, email);
   strcat(nom_panier, "_panier.txt");
   FILE *fichier = fopen(nom_panier, "r");
   char buffer[100];
   FILE *historique;
-  char nom_historique[50];
+  char nom_historique[100];
   strcpy(nom_historique, email);
   strcat(nom_historique, "_historique.txt");
   historique = fopen(nom_historique, "a");
@@ -1112,7 +1112,7 @@ void openhistorique() {
 
   FILE *historique = fopen(nom_historique, "r");
   if (historique == NULL) {
-    printf("Erreur : Impossible d'ouvrir le fichier\n");
+    printf("Vous n'avez pas encore effectué d'achat\n");
     EspaceClient();
   }
 
@@ -1133,8 +1133,8 @@ void openpanier() {
   system("clear");
   int totalprixpanier;
   int choix_panier;
-  int MAX_LENGTH = 30;
-  char nom_panier[30];
+  int MAX_LENGTH = 100;
+  char nom_panier[100];
   strcpy(nom_panier, email);
   strcat(nom_panier, "_panier.txt");
   FILE *fichier = fopen(nom_panier, "r");
@@ -1190,8 +1190,8 @@ void openpanier() {
 // Se désinscrire
 void seDesinscrire() {
   int choix;
-  char panier_client[50];
-  char historique_client[50];
+  char panier_client[100];
+  char historique_client[100];
   printf("\n\tVoulez-vous vraiment vous désinscrire:\n");
   couleur("32");
   printf("\n\t1.OUI");
@@ -1235,7 +1235,7 @@ int prixfinal() {
   int prix_item;
   int qty_item;
   int prix_tot = 0;
-  char nom_panier[30];
+  char nom_panier[100];
   strcpy(nom_panier, email);
   strcat(nom_panier, "_panier.txt");
   int count = 0;

@@ -323,12 +323,17 @@ void manageProduct() {
   int back = 0;
   while (1) {
 
-    printf(
-        "\n\n\t=================Mode Management Produit=================\n\n");
+    printf("\n\n\t================= ");
+    couleur("34");
+    printf("Mode Management Produit ");
+    couleur("0");
+    printf("=================\n\n");
+    couleur("36");
     printf("1.Ajouter un Produit\n\n");
     printf("2.Afficher la liste Produit\n\n");
     printf("3.Modifier un produit\n\n");
     printf("0.Retour\n\n");
+    couleur("0");
     printf("\n\n\t=======================================================\n\n");
     printf("\nEntrer votre choix:\n");
     scanf("%d", &ch);
@@ -521,14 +526,18 @@ int updateProduct() {
     scanf("%d", &id);
   }
   fflush(stdin);
+  couleur("36");
   printf("\nQue voulez vous changer:\n1.Nom du Produit\n2.Prix du "
          "Produit\n3.Quantité\n");
+  couleur("0");
   scanf("%d", &choix);
   while (choix < 1 || choix > 3) {
     fflush(stdin);
     printf("\nVeuillez faire un choix correcte\n");
+    couleur("34");
     printf("\nQue voulez vous changer:\n1.Nom du Produit\n2.Prix du "
            "Produit\n3.Quantité\n");
+    couleur("0");
     scanf("%d", &choix);
   }
   if (choix == 1) { // NOM
@@ -616,7 +625,6 @@ int updateProduct() {
 
 // BESOIN D'UNE VERSION DE UPDATEPRODUCT() SANS LE QUESTIONNAIRE DU DEBUT
 void updatePRODUCTAchat(int id, int nouvQty) {
-
   FILE *file = fopen(fproduct, "r"), *temp;
   ;
   char temp_filename[50];
@@ -757,14 +765,18 @@ int modifUsers() {
   strcat(temp_filename, filename);
 
   fflush(stdin);
+  couleur("36");
   printf("\nQue voulez vous changer:\n1.Nom de l'utilisateur\n2.Prenom de "
          "l'utilisateur\n3.Age de l'utilisateur\n");
+  couleur("0");
   scanf("%d", &choix);
   while (choix < 1 || choix > 3) {
     fflush(stdin);
     printf("\nVeuillez faire un choix correcte\n");
+    couleur("36");
     printf("\nQue voulez vous changer:\n1.Nom du Produit\n2.Prix du "
            "Produit\n3.Quantité\n");
+    couleur("0");
     scanf("%d", &choix);
   }
   if (choix == 1) {
@@ -819,11 +831,16 @@ void manageUsers() {
   int back = 0;
   while (1) {
 
-    printf(
-        "\n\n\t=================Mode Management Client=================\n\n");
+    printf("\n\n\t================= ");
+    couleur("34");
+    printf("Mode Management Client ");
+    couleur("0");
+    printf("=================\n\n");
+    couleur("36");
     printf("1.Modifier Informations Client\n\n");
     printf("2.Afficher la liste des Clients\n\n");
     printf("0.Retour\n\n");
+    couleur("0");
     printf("\n\n\t======================================================\n\n");
     printf("\nEntrer votre choix:\n");
     scanf("%d", &ch);
@@ -881,14 +898,18 @@ int modifMesInfos() {
   strcat(temp_filename, filename);
 
   fflush(stdin);
+  couleur("36");
   printf(
       "\nQue voulez vous changer:\n1.Nom\n2.Prenom\n3.Age\n4.Mot de Passe\n");
+  couleur("0");
   scanf("%d", &choix);
   while (choix < 1 || choix > 4) {
     fflush(stdin);
     printf("\nVeuillez faire un choix correcte\n");
+    couleur("36");
     printf(
         "\nQue voulez vous changer:\n1.Nom\n2.Prenom\n3.Age\n4.Mot de Passe\n");
+    couleur("0");
     scanf("%d", &choix);
   }
   if (choix == 1) {
@@ -985,11 +1006,22 @@ void Creapanier() {
           ataille_prod, aqty_achat, aplace_stck_prod);
   fclose(panier);
 
-  printf("\n\tVoulez vous continuer vos achats:\n1.Oui\n2.Non\n");
+  printf("\n\tVoulez vous continuer vos achats:\n");
+  couleur("32");
+  printf("1.Oui\n");
+  couleur("0");
+  couleur("31");
+  printf("2.Non\n");
+  couleur("0");
   scanf("%d", &choix_ach);
   while (choix_ach < 1 || choix_ach > 2) {
     printf("\n\tMauvais choix, veuillez réessayer:\n");
-    printf("\n\tVoulez vous continuer vos achats:\n1.Oui\n2.Non\n");
+    couleur("32");
+    printf("1.Oui\n");
+    couleur("0");
+    couleur("31");
+    printf("2.Non\n");
+    couleur("0");
     scanf("%d", &choix_ach);
   }
   if (choix_ach == 2) {
@@ -1002,17 +1034,37 @@ void Creapanier() {
 // Avoir acces a lachat
 void purchaseProduct() {
   int choix_ach;
-  printf("\n\n\t=================CY-SHOP=================\n\n");
-  printf("\t==========Bienvenu dans l'espace d'achat=============\n\n");
+
+  printf("\n\n\t================= ");
+  couleur("34");
+  printf("CY-SHOP ");
+  couleur("0");
+  printf("=================\n\n");
+  printf("\t==========");
+  couleur("33");
+  printf("Bienvenue dans l'espace d'achat");
+  couleur("0");
+  printf("=============\n\n");
 
   printf("\n\t\tVoici nos produits\n");
   displayAllProduct();
-  printf("\n\tVoulez vous faire un achat:\n1.Oui\n2.Non\n");
+  printf("\n\tVoulez vous faire un achat:\n");
+  couleur("32");
+  printf("1.Oui\n");
+  couleur("0");
+  couleur("31");
+  printf("2.Non\n");
+  couleur("0");
   scanf("%d", &choix_ach);
 
   while (choix_ach < 1 || choix_ach > 2) {
     printf("\n\tMauvais choix, veuillez réessayer:\n");
-    printf("\n\tVoulez vous faire un achat:\n1.Oui\n2.Non\n");
+    couleur("32");
+    printf("1.Oui\n");
+    couleur("0");
+    couleur("31");
+    printf("2.Non\n");
+    couleur("0");
     scanf("%d", &choix_ach);
   }
 
@@ -1119,12 +1171,18 @@ void openpanier() {
   fclose(fichier);
   totalprixpanier = prixfinal();
   printf("\n\n\t\t\t\t\t\t\tTotal : %d $", totalprixpanier);
-  printf("\n\tQue voulez-vous faire :\n1.Finaliser vos achats\n2.Retour\n");
+  printf("\n\tQue voulez-vous faire :");
+  couleur("36");
+  printf("\n1.Finaliser vos achats\n2.Retour\n");
+  couleur("0");
   scanf("%d", &choix_panier);
   while (choix_panier < 1 || choix_panier > 2) {
     printf("\nMauvais Choix, veuillez recommencer\n");
-    printf("\n\tQue voulez-vous faire :\n1.Modifier votre panier\n2.Finaliser "
-           "vos achats\n");
+    printf("\n\tQue voulez-vous faire :");
+    couleur("36");
+    printf("\n1.Finaliser vos achats\n2.Retour\n");
+    couleur("0");
+    ;
     scanf("%d", &choix_panier);
   }
 
@@ -1142,12 +1200,22 @@ void seDesinscrire() {
   char panier_client[50];
   char historique_client[50];
   printf("\n\tVoulez-vous vraiment vous désinscrire:\n");
-  printf("\n\t1.OUI\n2.NON\n");
+  couleur("32");
+  printf("\n\t1.OUI");
+  couleur("0");
+  couleur("31");
+  printf("\n2.NON\n");
+  couleur("0");
   scanf("%d", &choix);
   while (choix < 1 || choix > 2) {
     printf("\n\tErreur de saisie, veuillez recommencer:\n");
     printf("\n\tVoulez-vous vraiment vous désinscrire:\n");
-    printf("\n\t1.OUI\n2.NON\n");
+    couleur("32");
+    printf("\n\t1.OUI\n");
+    couleur("0");
+    couleur("31");
+    printf("\n\t2.NON\n");
+    couleur("0");
   }
   switch (choix) {
   case 1:
@@ -1200,15 +1268,24 @@ int prixfinal() {
 
 void EspaceClient() {
   int ch;
-  printf("\n\n\t=================CY-SHOP=================\n\n");
-  printf("\t==========Bienvenu dans votre espace Client=============\n\n");
-
+  printf("\n\n\t================= ");
+  couleur("34");
+  printf("CY-SHOP ");
+  couleur("0");
+  printf("=================\n\n");
+  printf("\t========== ");
+  couleur("33");
+  printf("Bienvenue dans votre espace Client ");
+  couleur("0");
+  printf("=============\n\n");
+  couleur("36");
   printf("1.Modifier vos informations Clients\n\n");
   printf("2.Voir nos Produits\n\n");
   printf("3.Votre Panier / Finaliser vos achats\n\n");
   printf("4.Votre Historique\n\n");
   printf("5.Se désinscrire\n\n");
   printf("0.Exit\n\n");
+  couleur("0");
   printf("\n\n\t=================================================\n\n");
   printf("\nVeuillez entrer votre choix:\n");
   scanf("%d", &ch);
@@ -1237,12 +1314,21 @@ void EspaceClient() {
 }
 void EspaceAdmin() {
   int ch;
-  printf("\n\n\t=================CY-SHOP=================\n\n");
-  printf("\t==============MODE : GESTION=============\n\n");
-
+  printf("\n\n\t================= ");
+  couleur("34");
+  printf("CY-SHOP ");
+  couleur("0");
+  printf("=================\n\n");
+  printf("\t============== ");
+  couleur("33");
+  printf("MODE GESTION ");
+  couleur("0");
+  printf("=============\n\n");
+  couleur("36");
   printf("1.Gérer les produits\n\n");
   printf("2.Gérer les Utilisateurs\n\n");
   printf("0.Exit\n\n");
+  couleur("0");
   printf("\n\n\t==========================================\n\n");
   printf("\nVeuillez entrer votre choix:\n");
   scanf("%d", &ch);

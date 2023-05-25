@@ -9,6 +9,7 @@ Il est nécessaire d'avoir ces fichiers afin que le programme fonctionne correct
 - couleurs.h
 - ReadSpecificLine.h
 - stockmax.txt
+- Makefile
 
 ## Codé avec 
 

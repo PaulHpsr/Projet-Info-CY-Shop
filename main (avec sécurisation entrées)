@@ -62,7 +62,7 @@ void openhistorique();
 void openpanier();
 void majProductachat();
 void updatePRODUCTAchat();
-// A FAIRE !!!!
+// A FAIRE !!!!!
 int prixfinal();
 void seDesinscrire();
 
@@ -326,7 +326,6 @@ void manageProduct() {
   system("clear");
   int choice;
   int back = 0;
-  char buffer[20] = {0};
   while (1) {
 
     printf("\n\n\t================= ");
@@ -342,19 +341,14 @@ void manageProduct() {
     couleur("0");
     printf("\n\n\t=======================================================\n\n");
     printf("\nEntrer votre choix:\n");
-    fgets(buffer, 20, stdin);
-    if (sscanf(buffer, "%d", &choice) == 1) // Extrait la valeur entière
-      {
-        while(choice !=1 && choice!=2 && choice!=3 && choice !=0){
-          printf("\n\tVeuillez saisir une valeur correcte\n");
-          scanf("%d", &choice);
+    while (1) {
+        if (scanf("%d", &choice) != 1 || (choice != 1 && choice != 2 && choice != 3 && choice != 0)) {
+            printf("Erreur : saisie invalide. Veuillez entrer une valeur parmi 1, 2, 3 ou 0 : \n");
+            while (getchar() != '\n');
+        } else {
+            break;
         }
-      }
-    else
-      {
-        printf("Veuillez saisir une valeur correcte\n");
-        scanf("%d", &choice);
-      }
+    }
 
   switch (choice) {
     case 1:
@@ -392,37 +386,23 @@ void addProduct() {
   scanf("%s", t1.name);
   
   printf("\nPrix du produit:");
-  fgets(buffer,50,stdin);
-  if (sscanf(buffer, "%d", &t1.price) == 1)
-    {
-      while(t1.price<0){
-        printf("\n\tVeuillez saisir une valeur correcte\n");
-        scanf("%d", &t1.price);
-      }
+  while (1) {
+        if (scanf("%d", &t1.price) != 1 || (t1.price<0)) {
+            printf("Erreur : saisie invalide. Veuillez entrer une valeur positive: \n");
+            while (getchar() != '\n');
+        } else {
+            break;
+        }
     }
-  else
-    {
-        printf("Veuillez saisir une valeur correcte\n");
-        scanf("%d", &t1.price);
-    }
-  
-  fflush(stdin);
   printf("\nTaille du produit");
   printf("\n1.S\n2.M\n3.L\n");
-  fgets(buffer, 50, stdin);
-  if (sscanf(buffer, "%d", &taille) == 1) // Extrait la valeur entière
-    {
-      while(taille !=1 && taille!=2 && taille!=3){
-        printf("\n\tVeuillez saisir une valeur correcte\n");
-        scanf("%d", &taille);
-      }
+  while (1) {
+        if (scanf("%d", &taille) != 1 || (taille != 1 && taille != 2 && taille != 3)) {
+            printf("Erreur : saisie invalide. Veuillez entrer une valeur parmi 1, 2 ou 3 : \n");
+            while (getchar() != '\n');
+        } else {
+            break;f
     }
-  else
-    {
-        printf("Veuillez saisir une valeur correcte\n");
-        scanf("%d", &taille);
-    }
-  fflush(stdin);
   switch (taille) {
   case 1:
     t1.taille = 'S';
@@ -438,20 +418,14 @@ void addProduct() {
     break;
   }
   printf("\nQuantité en stock:");
-  fgets(buffer, 20, stdin);
-  if (sscanf(buffer, "%d", &t1.qty) == 1) // Extrait la valeur entière
-    {
-      while(t1.qty<1){
-        printf("\n\tVeuillez saisir une valeur correcte\n");
-        scanf("%d", &t1.qty);
-      }
+  while (1) {
+        if (scanf("%d", &t1.qty) != 1 || (t1.qty<1)) {
+            printf("Erreur : saisie invalide. Veuillez entrer une valeur positive : \n");
+            while (getchar() != '\n');
+        } else {
+            break;
+        }
     }
-  else
-    {
-        printf("Veuillez saisir une valeur correcte\n");
-        scanf("%d", &t1.qty);
-    }
-  fflush(stdin);
 
   fscanf(fstock_max, "%d", &stockact);
   fclose(fstock_max);
@@ -541,7 +515,6 @@ int updateProduct() {
   char temp_filename[FILENAME_SIZE];
 
   char buffer[MAX_LINE];
-  char buffer2[20] = {0};
   char replace[MAX_LINE];
   int replace_line = 0;
   int stockact;
@@ -569,33 +542,19 @@ int updateProduct() {
     printf("\nQuel produit voulez-vous modifier (ID):\n");
     scanf("%d", &id);
   }
-  fflush(stdin);
+  //fflush(stdin); (?)
   couleur("36");
   printf("\nQue voulez vous changer:\n1.Nom du Produit\n2.Prix du "
          "Produit\n3.Quantité\n");
   couleur("0");
-  fgets(buffer2, 20, stdin);
-  if (sscanf(buffer2, "%d", &choice) == 1) // Extrait la valeur entière
-    {
-      while(choice !=1 && choice!=2 && choice!=3){
-        printf("\nVeuillez faire un choix correcte\n");
-        couleur("34");
-        printf("\nQue voulez vous changer:\n1.Nom du Produit\n2.Prix du "
-           "Produit\n3.Quantité\n");
-        couleur("0");
-        scanf("%d", &choice);
-      }
+  while (1) {
+        if (scanf("%d", &choice) != 1 || (choice != 1 && choice != 2 && choice != 3)) {
+            printf("Erreur : saisie invalide. Veuillez entrer une valeur parmi 1, 2 ou 3 : \n");
+            while (getchar() != '\n');
+        } else {
+            break;
+        }
     }
-  else
-    {
-      printf("\nVeuillez faire un choix correcte\n");
-      couleur("34");
-      printf("\nQue voulez vous changer:\n1.Nom du Produit\n2.Prix du "
-           "Produit\n3.Quantité\n");
-      couleur("0");
-      scanf("%d", &choice);
-    }
-    fflush(stdin);
   if (choice == 1) { // NOM
     replace_line = 2 * id;
     fflush(stdin);
@@ -809,7 +768,6 @@ int modifUsers() {
   char buffer[MAX_LINE];
   char replace[MAX_LINE];
   int replace_line = 0;
-  char buffer2[20] = {0};
   
   fflush(stdin);
   printf("\nQuel utilisateur voulez modifier(format .txt):\n");
@@ -823,27 +781,14 @@ int modifUsers() {
   printf("\nQue voulez vous changer:\n1.Nom de l'utilisateur\n2.Prenom de "
          "l'utilisateur\n3.Age de l'utilisateur\n");
   couleur("0");
-  fgets(buffer2, 20, stdin);
-    if (sscanf(buffer2, "%d", &choice) == 1) // Extrait la valeur entière
-      {
-        while(choice !=1 && choice!=2 && choice!=3){
-          printf("\nVeuillez faire un choix correct\n");
-        couleur("36");
-        printf("\nQue voulez vous changer:\n1.Nom du Produit\n2.Prix du "
-           "Produit\n3.Quantité\n");
-        couleur("0");
-        scanf("%d", &choice);
+  while (1) {
+        if (scanf("%d", &choice) != 1 || (choice != 1 && choice != 2 && choice != 3)) {
+            printf("Erreur : saisie invalide. Veuillez entrer une valeur parmi 1, 2 ou 3 : \n");
+            while (getchar() != '\n');
+        } else {
+            break;
         }
-      }
-    else
-      {
-        printf("\nVeuillez faire un choix correct\n");
-        couleur("36");
-        printf("\nQue voulez vous changer:\n1.Nom du Produit\n2.Prix du "
-           "Produit\n3.Quantité\n");
-        couleur("0");
-        scanf("%d", &choice);
-      }
+    }
   switch(choice){
     case 1:
       replace_line = 1;
@@ -909,21 +854,16 @@ void manageUsers() {
     printf("2.Afficher la liste des Clients\n\n");
     printf("0.Retour\n\n");
     couleur("0");
-    printf("\n\n\t======================================================\n\n");
+        printf("\n\n\t======================================================\n\n");
     printf("\nEntrer votre choix:\n");
-    fgets(buffer, 20, stdin);
-    if (sscanf(buffer, "%d", &choice) == 1) // Extrait la valeur entière
-      {
-        while(choice !=1 && choice!=2 && choice!=0){
-          printf("\n\tVeuillez saisir une valeur correcte\n");
-          scanf("%d", &choice);
+    while (1) {
+        if (scanf("%d", &choice) != 1 || (choice != 1 && choice != 2 && choice != 0)) {
+            printf("Erreur : saisie invalide. Veuillez entrer une valeur parmi 1, 2 ou 0 : \n");
+            while (getchar() != '\n');
+        } else {
+            break;
         }
-      }
-    else
-      {
-        printf("Veuillez saisir une valeur correcte\n");
-        scanf("%d", &choice);
-      }
+    }
 
     switch (choice) {
     case 1:
@@ -945,7 +885,7 @@ void manageUsers() {
 // Interface Client
 int modifMesInfos() {
   FILE *file, *temp;
-  int choix;
+  int choice;
   char filename[FILENAME_SIZE];
   char temp_filename[FILENAME_SIZE];
 
@@ -983,29 +923,16 @@ int modifMesInfos() {
   printf(
       "\nQue voulez vous changer:\n1.Nom\n2.Prenom\n3.Age\n4.Mot de Passe\n");
   couleur("0");
-  fgets(buffer1, 20, stdin);
-  if (sscanf(buffer1, "%d", &choix) == 1) // Extrait la valeur entière
-    {
-      while(choix !=1 && choix!=2 && choix!=3 && choix != 4){
-        printf("\nVeuillez faire un choix correct\n");
-        couleur("36");
-        printf(
-        "\nQue voulez vous changer:\n1.Nom\n2.Prenom\n3.Age\n4.Mot de Passe\n");
-        couleur("0");
-        scanf("%d", &choix);
-      }
-    }
-  else
-    {
-      printf("\nVeuillez faire un choix correct\n");
-      couleur("36");
-      printf(
-        "\nQue voulez vous changer:\n1.Nom\n2.Prenom\n3.Age\n4.Mot de Passe\n");
-      couleur("0");
-      scanf("%d", &choix);
+  while (1) {
+        if (scanf("%d", &choice) != 1 || (choice != 1 && choice != 2 && choice != 3 && choice != 4)) {
+            printf("Erreur : saisie invalide. Veuillez entrer une valeur parmi 1, 2, 3 ou 4 : \n");
+            while (getchar() != '\n');
+        } else {
+            break;
+        }
     }
     
-  switch(choix){
+  switch(choice){
     case 1:
       replace_line = 1;
       break;
@@ -1113,24 +1040,13 @@ void Creapanier() {
   couleur("31");
   printf("2.Non\n");
   couleur("0");
-  fgets(buffer, 20, stdin);
-  if (sscanf(buffer, "%d", &choix_ach) == 1) // Extrait la valeur entière
-    {
-      while(choix_ach !=1 && choix_ach!=2){
-        printf("\n\tMauvais choix, veuillez réessayer:\n");
-        couleur("32");
-        printf("1.Oui\n");
-        couleur("0");
-        couleur("31");
-        printf("2.Non\n");
-        couleur("0");
-        scanf("%d", &choix_ach);
-      }
-    }
-  else
-    {
-        printf("Veuillez saisir une valeur correcte\n");
-        scanf("%d", &choix_ach);
+  while (1) {
+        if (scanf("%d", &choix_ach) != 1 || (choix_ach != 1 && choix_ach != 2)) {
+            printf("Erreur : saisie invalide. Veuillez entrer une valeur parmi 1 ou 2 : \n");
+            while (getchar() != '\n'); //
+        } else {
+            break; //
+        }
     }
   if (choix_ach == 2) {
     EspaceClient();
@@ -1142,7 +1058,6 @@ void Creapanier() {
 // Avoir acces a lachat
 void purchaseProduct() {
   int choix_ach;
-  char buffer[20] = {0};
 
   printf("\n\n\t================= ");
   couleur("34");
@@ -1164,18 +1079,13 @@ void purchaseProduct() {
   couleur("31");
   printf("2.Non\n");
   couleur("0");
-  fgets(buffer,20,stdin);
-  if (sscanf(buffer, "%d", &choix_ach) == 1) // Extrait la valeur entière
-    {
-      while(choix_ach !=1 && choix_ach != 2){
-        printf("\n\tVeuillez saisir une valeur correcte\n");
-        scanf("%d", &choix_ach);
-      }
-    }
-  else
-    {
-      printf("Veuillez saisir une valeur correcte\n");
-      scanf("%d", &choix_ach);
+  while (1) {
+        if (scanf("%d", &choix_ach) != 1 || (choix_ach != 1 && choix_ach != 2)) {
+            printf("Erreur : saisie invalide. Veuillez entrer une valeur parmi 1 ou 2 : \n");
+            while (getchar() != '\n'); //
+        } else {
+            break; //
+        }
     }
 
   if (choix_ach == 2) {
@@ -1283,31 +1193,18 @@ void openpanier() {
   }
   fclose(fichier);
   totalprixpanier = prixfinal();
-  printf("\n\n\t\t\t\t\t\t\tTotal : %d $", totalprixpanier);
+  printf("\n\n\t\t\t\t\t\t\tTotal : %d €", totalprixpanier);
   printf("\n\tQue voulez-vous faire :");
   couleur("36");
   printf("\n1.Finaliser vos achats\n2.Retour\n");
   couleur("0");
-  fgets(buffer, 20, stdin);
-  if (sscanf(buffer, "%d", &choix_panier) == 1) // Extrait la valeur entière
-    {
-      while(choix_panier !=1 && choix_panier!=2){
-        printf("\nMauvais Choix, veuillez recommencer\n");
-        printf("\n\tQue voulez-vous faire :");
-        couleur("36");
-        printf("\n1.Finaliser vos achats\n2.Retour\n");
-        couleur("0");
-        scanf("%d", &choix_panier);
-      }
-    }
-  else
-    {
-        printf("\nMauvais Choix, veuillez recommencer\n");
-        printf("\n\tQue voulez-vous faire :");
-        couleur("36");
-        printf("\n1.Finaliser vos achats\n2.Retour\n");
-        couleur("0");
-        scanf("%d", &choix_panier);
+  while (1) {
+        if (scanf("%d", &choix_panier) != 1 || (choix_panier != 1 && choix_panier != 2)) {
+            printf("Erreur : saisie invalide. Veuillez entrer une valeur parmi 1 ou 2 : \n");
+            while (getchar() != '\n'); //
+        } else {
+            break; //
+        }
     }
 
     
@@ -1334,32 +1231,13 @@ void seDesinscrire() {
   couleur("31");
   printf("\n2.NON\n");
   couleur("0");
-  fgets(buffer, 20, stdin);
-  if (sscanf(buffer, "%d", &choice) == 1) // Extrait la valeur entière
-    {
-      while(choice !=1 && choice!=2){
-         printf("\n\tErreur de saisie, veuillez recommencer:\n");
-        printf("\n\tVoulez-vous vraiment vous désinscrire:\n");
-        couleur("32");
-        printf("\n\t1.OUI\n");
-        couleur("0");
-        couleur("31");
-        printf("\n\t2.NON\n");
-        couleur("0");
-        scanf("%d", &choice);
-      }
-    }
-  else
-    {
-      printf("\n\tErreur de saisie, veuillez recommencer:\n");
-      printf("\n\tVoulez-vous vraiment vous désinscrire:\n");
-      couleur("32");
-      printf("\n\t1.OUI\n");
-      couleur("0");
-      couleur("31");
-      printf("\n\t2.NON\n");
-      couleur("0");
-      scanf("%d", &choice);
+  while (1) {
+        if (scanf("%d", &choice) != 1 || (choice != 1 && choice != 2)) {
+            printf("Erreur : saisie invalide. Veuillez entrer une valeur parmi 1 ou 2 : \n");
+            while (getchar() != '\n');
+        } else {
+            break;
+        }
     }
   switch (choice) {
   case 1:
@@ -1409,7 +1287,6 @@ int prixfinal() {
 
 void EspaceClient() {
   int choice;
-  char buffer[20] = {0}; 
   printf("\n\n\t================= ");
   couleur("34");
   printf("CY-SHOP ");
@@ -1431,18 +1308,13 @@ void EspaceClient() {
 
   printf("\n\n\t=================================================\n\n");
   printf("\nVeuillez entrer votre choix:\n");
-  fgets(buffer,sizeof(buffer),stdin);
-  if (sscanf(buffer, "%d", &choice) == 1) // Extrait la valeur entière
-    {
-      while(choice !=1 && choice!=2 && choice!=3 && choice !=4 && choice !=5 && choice !=0){
-        printf("\n\tVeuillez saisir une valeur correcte\n");
-        scanf("%d", &choice);
-      }
-    }
-  else
-    {
-        printf("Veuillez saisir une valeur correcte\n");
-        scanf("%d", &choice);
+  while (1) {
+        if (scanf("%d", &choice) != 1 || (choice != 1 && choice != 2 && choice != 3 && choice != 4 && choice != 5 && choice != 0)) {
+            printf("Erreur : saisie invalide. Veuillez entrer une valeur parmi 1, 2 ou 3 : \n");
+            while (getchar() != '\n');
+        } else {
+            break;
+        }
     }
   switch (choice) {
   case 1:
@@ -1469,7 +1341,6 @@ void EspaceClient() {
 }
 void EspaceAdmin() {
   int choice;
-  char buffer[20] = {0};
   printf("\n\n\t================= ");
   couleur("34");
   printf("CY-SHOP ");
@@ -1487,18 +1358,13 @@ void EspaceAdmin() {
   couleur("0");
   printf("\n\n\t==========================================\n\n");
   printf("\nVeuillez entrer votre choix:\n");
-  fgets(buffer,20,stdin);
-  if (sscanf(buffer, "%d", &choice) == 1) // Extrait la valeur entière
-    {
-      while(choice !=1 && choice!=2 && choice!=0){
-        printf("\n\tVeuillez saisir une valeur correcte\n");
-        scanf("%d", &choice);
-      }
-    }
-  else
-    {
-      printf("Veuillez saisir une valeur correcte\n");
-      scanf("%d", &choice);
+  while (1) {
+        if (scanf("%d", &choice) != 1 || (choice != 1 && choice != 2 && choice != 0)) {
+            printf("Erreur : saisie invalide. Veuillez entrer une valeur parmi 1, 2 ou 3 : \n");
+            while (getchar() != '\n');
+        } else {
+            break;
+        }
     }
   switch (choice) {
   case 1:
@@ -1552,20 +1418,16 @@ int DefaultScreen() {
   couleur("0");
 
   // Asking for choice
-  printf("\n\n\nEntrez votre choix : ");
-  fgets(buffer, 20, stdin);
-  if (sscanf(buffer, "%d", &choice) == 1) // Extrait la valeur entière
-    {
-      while(choice <1 || choice > 3){
-        printf("\n\tVeuillez saisir une valeur correcte\n");
-        scanf("%d", &choice);
-      }
+  printf("\n\n\nEntrez votre choix : \n");
+  while (1) {
+        if (scanf("%d", &choice) != 1 || (choice != 1 && choice != 2 && choice != 3)) {
+            printf("Erreur : saisie invalide. Veuillez entrer une valeur parmi 1, 2 ou 3 : \n");
+            while (getchar() != '\n');
+        } else {
+            break;
+        }
     }
-  else
-    {
-        printf("Veuillez saisir une valeur correcte\n");
-        scanf("%d", &choice);
-    }
+
     
   switch (choice) {
   case 1: {

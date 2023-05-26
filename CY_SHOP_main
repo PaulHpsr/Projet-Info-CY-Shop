@@ -7,8 +7,7 @@
 #include <string.h>
 #include <time.h>
 // Bibliothèques
-char email[100];
-int f;
+
 // Structures
 
 typedef struct {
@@ -28,21 +27,14 @@ typedef struct {
   int place_stck;
 } Product;
 
-// Logs Admin
-char admin[30] = "admin@gmail.com";
-char adminp[10] = "a";
+
 // Déclaration des fonction (dans l'ordre)//
 void signup();
 void Crea_Client();
 int valid();
 int compte_existant();
 int login();
-// Variables De comptes
-//  (Mettre des malloc ??)
-char t_name[100], t_password1[100];
-char t_password2[100], t_email[100];
-char t_prenom[100];
-int t_age;
+
 //
 int DefaultScreen();
 int getID();
@@ -61,19 +53,23 @@ void openhistorique();
 void openpanier();
 void majProductachat();
 void updatePRODUCTAchat();
-// A FAIRE !!!!!
 int prixfinal();
 void seDesinscrire();
 
 // Espaces
 void EspaceClient();
 void EspaceAdmin();
-// Déclaration des variables globales
+// Déclaration des variables fichiers
 char fproduct[] = {"product.txt"};
 char fstock[] = {"stockmax.txt"};
+char email[100];
 
 // Connexion/Création de compte
 void signup() {
+char t_name[100], t_password1[100];
+char t_password2[100], t_email[100];
+char t_prenom[100];
+int t_age;
   system("clear");
   int x;
   //
@@ -102,11 +98,11 @@ void signup() {
   printf("\tEntrer votre AGE : ");
   scanf("%d", &t_age);
 
-  x = valid();
+  x = valid(t_name, t_password1, t_password2);
   if (x == 1) {
 
     // Processus de crea de fiche client
-    Crea_Client();
+    Crea_Client(t_name,t_prenom,t_email,t_password1,t_password2,t_age);
 
     // Se connecter
     GestionMode();
@@ -114,7 +110,7 @@ void signup() {
 }
 
 // Création de la fiche client
-void Crea_Client() {
+void Crea_Client(char t_name[], char t_password1[], char t_prenom[], char t_email[], int t_age) {
   FILE *fc; // pointeur file du client
   Client client;
   int validate = 0;
@@ -141,7 +137,7 @@ void Crea_Client() {
 }
 
 // Vérif des infos client bien conformes
-int valid() {
+int valid(char t_name[], char t_prenom[], char t_email[], char t_password1[], char t_password2[], int t_age) {
   int i;
   int count;
   int nbr;
@@ -206,7 +202,7 @@ int valid() {
 }
 
 // Vérif si client déjà inscrit != Doublons clients
-int compte_existant() {
+int compte_existant(char t_email[]) {
   char *fname = malloc(sizeof(char) * 200);
   strcpy(fname, t_email);
   strcat(fname, ".txt");
@@ -232,6 +228,10 @@ int compte_existant() {
 
 // Connexion des clients
 int login() {
+//Logs admin pour Gestion Mode
+char admin[16] = "admin@gmail.com";
+char adminp[1] = "a";
+
   system("clear");
   int a;
   int i;

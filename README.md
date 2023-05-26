@@ -51,7 +51,7 @@ Le mode client permet :
 ### Compiler le programme :
 (Sous linux)
 Afin d'utiliser le programme vous devez d'abord le compiler avec la commande :
-/make    
+make    (dans le terminal)
 
 ### Exécuter le programme :
 Afin d'éxécuter le programme vous devez utiliser la commande :
@@ -62,7 +62,7 @@ Afin d'éxécuter le programme vous devez utiliser la commande :
 Certaines entrées ne sont pas à 100% sécurisées, notamment lors de la saisie des id et quantité des produits lorsque l'on veut ajouter ou modifier un produit. En effet, le programme crash si vous entrez quelconque symbole autre qu'un chiffre. 
 
 ## Auteurs
-CY-TEch | MI2
+CY-Tech | MI2
 - Paul HOPSORE
 - Corentin PELLERIN
 - Athalin LECALVEZ

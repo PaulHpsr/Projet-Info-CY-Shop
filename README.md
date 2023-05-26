@@ -65,4 +65,4 @@ Certaines entrées ne sont pas à 100% sécurisées, notamment lors de la saisie
 CY-Tech | MI2
 - Paul HOPSORE
 - Corentin PELLERIN
-- Athalin LECALVEZ
+- Athalin LE CALVEZ

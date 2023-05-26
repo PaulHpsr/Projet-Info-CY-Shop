@@ -51,7 +51,7 @@ Le mode client permet :
 ### Compiler le programme :
 (Sous linux)
 Afin d'utiliser le programme vous devez d'abord le compiler avec la commande :
-gcc -o CY_SHOP_main.c -g Cy_SHOP_MI2 -pthread -lm -lncursesw
+/make    
 
 ### Exécuter le programme :
 Afin d'éxécuter le programme vous devez utiliser la commande :

@@ -62,7 +62,7 @@ void openhistorique();
 void openpanier();
 void majProductachat();
 void updatePRODUCTAchat();
-// A FAIRE !!!!!
+// A FAIRE !!!!
 int prixfinal();
 void seDesinscrire();
 

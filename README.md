@@ -55,7 +55,7 @@ make    (dans le terminal)
 
 ### Exécuter le programme :
 Afin d'éxécuter le programme vous devez utiliser la commande :
-./Cy_SHOP_MI2
+./CY_SHOP_main
 
 ## Limitations fonctionnelles
 

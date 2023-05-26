@@ -1,4 +1,4 @@
-all: main
+all: CY_SHOP_main
 
 CC = gcc
 override CFLAGS += -g -Wno-everything -pthread -lm -lncursesw

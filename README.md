@@ -30,8 +30,12 @@ L'utilisateur doit se connecter avec les logs suivant : - email : admin@gmail.co
                                                      
  Le mode gestion permet : 
  - Gérer les produits
+    - Ajouter un produit
+    - Afficher la liste des produits
+    - Modifier les informations d'un produit (nom, prix, taille, qté)
  - Gérer les clients
-
+    - Modifier une informations d'un Client (nom, prenom, age)
+    - Afficher la liste des clients inscrits (+leurs panier et historique)
 ### Mode Client :
 
 L'utilisateur doit d'abord s'inscrire puis se connecter avec les logs qu'il à utilisé pour s'inscrire.
@@ -43,8 +47,21 @@ Le mode client permet :
 - Voir Votre Historique
 - Se désinscrire
 
+###Compiler le programme :
+(Sous linux)
+Afin d'utiliser le programme vous devez d'abord le compiler avec la commande :
+gcc -o CY_SHOP.c -g Cy_SHOP_MI2 -pthread -lm -lncursesw
+
+###Exécuter le programme :
+Afin d'éxécuter le programme vous devez utiliser la commande :
+./Cy_SHOP_MI2
+
+##Limitations fonctionnelles
+
+Certaines entrées ne sont pas à 100% sécurisées, notamment lors de la saisie des id et quantité des produits lorsque l'on veut ajouter ou modifier un produit. En effet, le programme crash si vous entrez quelconque symbole autre qu'un chiffre. 
+
 ## Auteurs
-MI2
+CY-TEch | MI2
 - Paul HOPSORE
 - Corentin PELLERIN
 - Athalin LECALVEZ

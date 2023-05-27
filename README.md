@@ -59,7 +59,7 @@ Afin d'éxécuter le programme vous devez utiliser la commande :
 
 ## Limitations fonctionnelles
 
-Certaines entrées ne sont pas à 100% sécurisées, notamment lors de la saisie des id et quantité des produits lorsque l'on veut ajouter ou modifier un produit. En effet, le programme crash si vous entrez quelconque symbole autre qu'un chiffre. 
+Nous n'avons pas mis à disposition un moyen de supprimer un produit de la liste à l'aide du programme, ainsi si vous supprimez manuellement le produit directement depuis le fichier .txt certaines fonctionnalitées du projet ne fonctionneront pas.  
 
 ## Auteurs
 CY-Tech | MI2

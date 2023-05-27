@@ -59,7 +59,7 @@ Afin d'éxécuter le programme vous devez utiliser la commande :
 
 ## Limitations fonctionnelles
 
-Nous n'avons pas mis à disposition un moyen de supprimer un produit de la liste à l'aide du programme, ainsi si vous supprimez manuellement le produit directement depuis le fichier .txt certaines fonctionnalitées du projet ne fonctionneront pas.  
+Nous n'avons pas mis à disposition un moyen de supprimer un produit de la liste à l'aide du programme, ainsi si vous supprimez manuellement le produit directement depuis le fichier .txt certaines fonctionnalitées du projet ne fonctionneront pas. (cela est valables pour les fichier : prodid.txt , product.txt et stockmax.txt)
 
 ## Auteurs
 CY-Tech | MI2

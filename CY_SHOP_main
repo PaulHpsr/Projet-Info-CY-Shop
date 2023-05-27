@@ -30,6 +30,7 @@ typedef struct {
 } Product;
 
 
+
 // Déclaration des fonction (dans l'ordre)//
 void signup();
 void Crea_Client();
@@ -61,23 +62,26 @@ void seDesinscrire();
 // Espaces
 void EspaceClient();
 void EspaceAdmin();
+
 // Déclaration des variables fichiers
 char fproduct[] = {"product.txt"};
 char fstock[] = {"stockmax.txt"};
 char email[100];
 
 // Connexion/Création de compte
+
 void signup() {
-
-char t_name[100], t_password1[100];
-char t_password2[100], t_email[100];
-char t_prenom[100];
-int t_age;
-
-  system("clear");
+// variables
+  char t_name[100], t_password1[100];
+  char t_password2[100], t_email[100];
+  char t_prenom[100];
+  int t_age;
   int x;
   int valide;  
+  system("clear");
 
+//Ecran d'inscripation
+  
   printf("\n\n\t=================Inscription à CY-SHOP=================\n\n");
 
   // Nom
@@ -102,7 +106,8 @@ int t_age;
   printf("\tEntrer votre AGE : ");
   scanf("%d", &t_age);
 
-  x = valid();
+  //Voir si les infos entrées sont valides
+  x = valid(t_name, t_password1, t_prenom, t_email, t_age);
   if (x == 1) {
 
     // Processus de crea de fiche client
@@ -115,25 +120,26 @@ int t_age;
 
 // Création de la fiche client
 void Crea_Client(char t_name[], char t_password1[], char t_prenom[], char t_email[], int t_age) {
+
   FILE *fc; // pointeur file du client
   Client client;
   int validate = 0;
-
   char *fname = malloc(sizeof(char) * 200);
+  //nom du fichier client
   strcpy(fname, t_email);
   strcat(fname, ".txt");
 
-  if (compte_existant() == 1) { // Pas de doublons de client
+  if (compte_existant(t_email) == 1) { // Pas de doublons de client
 
-    fc = fopen(fname, "a"); // Creation du fichier Client + infos
+    fc = fopen(fname, "a"); // Creation du fichier Client
     strcpy(client.name, t_name);
     strcpy(client.email, t_email);
     strcpy(client.prenom, t_prenom);
     client.age = t_age;
     strcpy(client.password, t_password1);
+    //écriture des infos dans le fichier
     fprintf(fc, "%s\n%s\n%d\n%s\n%s", client.name, client.prenom, client.age,
             client.password, client.email);
-    //
     fclose(fc);
     printf("\nCompte bien créé\n\n");
   }
@@ -143,36 +149,37 @@ void Crea_Client(char t_name[], char t_password1[], char t_prenom[], char t_emai
 // Vérif des infos client bien conformes
 int valid(char t_name[], char t_prenom[], char t_email[], char t_password1[], char t_password2[], int t_age) {
   int i;
-  int count;
+  int count = 0;
   int nbr;
   int succes;
-  // Nom
-  for (i = 0; t_name[i] != '\0'; i++) {
-    while (!((t_name[i] >= 'a' && t_name[i] <= 'z') ||
-             (t_name[i] >= 'A' && t_name[i] <= 'Z'))) {
+  
+  // Verif Nom
+  for (i = 0; t_name[i] != '\0'; i++) { //Tant qu'il reste des char dans t_name 
+    while (!((t_name[i] >= 'a' && t_name[i] <= 'z') || (t_name[i] >= 'A' && t_name[i] <= 'Z'))) { //Vérif si le Nom composé que de lettres
       printf("\nVeuillez entrer un nom valide!\n");
       fflush(stdin);
       printf("Entrer votre prénom:\n");
       scanf("%s", t_name);
     }
   }
-  // Prenom
+  
+  // Verif Prenom
   for (i = 0; t_prenom[i] != '\0'; i++) {
-    while (!((t_prenom[i] >= 'a' && t_prenom[i] <= 'z') ||
+    while (!((t_prenom[i] >= 'a' && t_prenom[i] <= 'z') ||     //Même chose que pour le Nom
              (t_prenom[i] >= 'A' && t_prenom[i] <= 'Z'))) {
       printf("\nVeuillez entrer un prénom valide!\n");
       fflush(stdin);
       scanf("%s", t_prenom);
     }
   }
-  count = 0;
-  // Email
+  
+  // Verif Email
   for (i = 0; t_email[i] != '\0'; i++) {
-    if (t_email[i] == '@' || t_email[i] == '.') {
+    if (t_email[i] == '@' || t_email[i] == '.') {       //Vérif si t_email contient au moins 1 @ et 1 . -> email valide
       count++;
     }
   }
-  while (count != 2) {
+  while (count != 2) {   //On sécurise l'entrée de email
     count = 0;
     printf("\nEmail non valide!!\nVeuillez Saisir une adresse email valide:\n");
     scanf("%s", t_email);
@@ -182,21 +189,24 @@ int valid(char t_name[], char t_prenom[], char t_email[], char t_password1[], ch
       }
     }
   }
-  // MDP et Age
-  while (strcmp(t_password1, t_password2)) {
+  
+  // Verif MDP et Age
+  //MDP
+  while (strcmp(t_password1, t_password2)) {  //On compare t_password et t_password2
     printf("\nMot de Passe ne sont pas les même!\n\n");
     printf("\nVeuillez recommencer:\n");
-    // MDP
+
     printf("\tMot de Passe : ");
     scanf("%s", t_password1);
 
-    // MDP Confirm
+    // Verif MDP Confirm
     printf("\tConfirmer le Mot de Passe : ");
     scanf("%s", t_password2);
   }
+  
   while (t_age == 0 && t_age < 0) {
     printf("\n\nVeuillez entrer un age valide!\n\n");
-    // Age
+    // Verif Age
     printf("\tEntrer votre Age : ");
     scanf("%d", &t_age);
   }
@@ -208,26 +218,26 @@ int valid(char t_name[], char t_prenom[], char t_email[], char t_password1[], ch
 // Vérif si client déjà inscrit != Doublons clients
 int compte_existant(char t_email[]) {
   char *fname = malloc(sizeof(char) * 200);
-  strcpy(fname, t_email);
+  
+  strcpy(fname, t_email);   //Les fichiers de client inscrit sont sous forme : "email.txt"
   strcat(fname, ".txt");
+  
   // Recherche dans le directory (fichiers du programme)
   DIR *d;
   struct dirent *dir;
   d = opendir(".");
   if (d) {
-    while ((dir = readdir(d)) !=
-           NULL) // Tant qu'il reste des fichiers non vérif
+    while ((dir = readdir(d)) != NULL) // Tant qu'il reste des fichiers non vérif
     {
-      if (!(strcmp(dir->d_name,
-                   fname))) { // Si d_name == email client -> déjà register
+      if (!(strcmp(dir->d_name,fname))) { // Si d_name == email client -> déjà inscrit
         printf("\nCompte existant, veuillez vous connecter\n\n");
         free(fname);
-        return 0;
+        return 0; //compte existant
       }
     }
     closedir(d);
   }
-  return 1; // Compte déjà existant
+  return 1; // Compte non existant
 }
 
 // Connexion des clients
@@ -235,15 +245,19 @@ int login() {
 //Logs admin pour Mode Gestion
 char admin[30] = "admin@gmail.com";
 char adminp[10] = "a";
-
+  
   system("clear");
+  
   int a;
   int i;
   FILE *fc;
   int count = 0;
+  char email[100];
   char email2[5] = ".txt";
   char pasword[100];
   char pasword2[100];
+
+  //Affichage de Connexion
   printf("\n\n\t================= ");
   couleur("34");
   printf("Connexion à CY-SHOP ");
@@ -259,6 +273,7 @@ char adminp[10] = "a";
       count++;
     }
   }
+  //Sécurisation de l''entrée email
   while (count != 2) {
     count = 0;
     printf("\nEmail non valide!!\nVeuillez Saisir une adresse email valide:\n");
@@ -269,6 +284,7 @@ char adminp[10] = "a";
       }
     }
   }
+  
   printf("\t Entrez votre Mot de Passe: ");
   // MDP
   scanf("%s", pasword2);
@@ -278,6 +294,7 @@ char adminp[10] = "a";
       return a;
     }
   }
+  
   strcat(email, email2);
   // Verif correspondance mdp/compte
   fc = fopen(email, "r");
@@ -302,10 +319,11 @@ char adminp[10] = "a";
 
 // Mode Management
 
-// Gene de ID produit
+// Generation de ID produit
 int getID() {
   FILE *fp;
   int value = 0;
+  
   fp = fopen("prodid.txt", "r");
   if (fp == NULL) { // Création du fichier qui suit le id produit (nbr de
                     // produit total -> prochain ID produit)
@@ -314,8 +332,7 @@ int getID() {
     fclose(fp);
     fp = fopen("prodid.txt", "r");
   }
-  // Remplace la valeur par valeur+1 à chaque fois qu'un produit est ajouté à la
-  // liste
+  // Remplace la valeur par valeur+1 à chaque fois qu'un produit est ajouté à la liste
   fscanf(fp, "%d", &value);
   fclose(fp);
   fp = fopen("prodid.txt", "w");
@@ -329,6 +346,9 @@ void manageProduct() {
   system("clear");
   int choice;
   int back = 0;
+
+  // Affichage du mode Gestion produit (Admin)
+  
   while (1) {
 
     printf("\n\n\t================= ");
@@ -344,6 +364,8 @@ void manageProduct() {
     couleur("0");
     printf("\n\n\t=======================================================\n\n");
     printf("\nEntrer votre choix:\n");
+
+    //Sécurisation de l'entrée
     while (1) {
         if (scanf("%d", &choice) != 1 || (choice != 1 && choice != 2 && choice != 3 && choice != 0)) {
             printf("Erreur : saisie invalide. Veuillez entrer une valeur parmi 1, 2, 3 ou 0 : \n");
@@ -352,7 +374,7 @@ void manageProduct() {
             break;
         }
     }
-
+//Appel de fonction dépendant du choix utilisateur
   switch (choice) {
     case 1:
       addProduct();
@@ -377,18 +399,22 @@ void manageProduct() {
 void addProduct() {
   FILE *fp;
   FILE *fstock_max;
+  
   Product t1;
+  
   int taille;
   int stockact;
-  int stock_base = 0;
-  char buffer[50] = {0};
+  int stock_base = 0; //stock à ajouté (place que prend l'ajout du produit)
+  
   fp = fopen(fproduct, "a");
   fstock_max = fopen(fstock, "r");
   t1.id = getID();
+  //Entrées des données du produits
   printf("\nNom du produit:");
   scanf("%s", t1.name);
   
   printf("\nPrix du produit:");
+  //sécurisation de l'entrée
   while (1) {
         if (scanf("%d", &t1.price) != 1 || (t1.price<0)) {
             printf("Erreur : saisie invalide. Veuillez entrer une valeur positive: \n");
@@ -397,15 +423,19 @@ void addProduct() {
             break;
         }
     }
+  
   printf("\nTaille du produit");
   printf("\n1.S\n2.M\n3.L\n");
+  //sécurisation de l'entrée
   while (1) {
         if (scanf("%d", &taille) != 1 || (taille != 1 && taille != 2 && taille != 3)) {
-            printf("Erreur : saisie invalide. Veuillez entrer une valeur parmi 1, 2 ou 3 : \n");
+            printf("Saisie invalide. Veuillez entrer une valeur parmi 1, 2 ou 3 : ");
             while (getchar() != '\n');
         } else {
-            break;f
+            break;
+        }
     }
+  //Choix de la taille en fonction de l'entrée utilisateur
   switch (taille) {
   case 1:
     t1.taille = 'S';
@@ -420,6 +450,7 @@ void addProduct() {
     t1.place_stck = 3;
     break;
   }
+  
   printf("\nQuantité en stock:");
   while (1) {
         if (scanf("%d", &t1.qty) != 1 || (t1.qty<1)) {
@@ -430,16 +461,21 @@ void addProduct() {
         }
     }
 
+  //Lis la valeur des stock dispo actuelles
   fscanf(fstock_max, "%d", &stockact);
   fclose(fstock_max);
+  
   stock_base += (t1.place_stck) * (t1.qty);
+  //Vérif si il y a assez de place en stck pour ajouter le produit
   if (stock_base > stockact) {
     printf("La capacité de stockage du magasin est dépassé. Vous ne pouvez "
            "plus ajouter de produits\n");
     manageProduct();
   } else {
-    fprintf(fp, "%d\n%s\n%d\n%c\n%d\n%d\n", t1.id, t1.name, t1.price, t1.taille,
-            t1.qty, t1.place_stck);
+    //Ajoute le produit dans le fichier "product.txt"
+    fprintf(fp, "%d\n%s\n%d\n%c\n%d\n%d\n", t1.id, t1.name, t1.price, t1.taille,t1.qty, t1.place_stck);
+    
+    //Actualise la valeur des stock dispo dans le CY-SHOP après l'ajout du produit
     stockact = stockact - stock_base;
     fstock_max = fopen(fstock, "w");
     fprintf(fstock_max, "%d", stockact);
@@ -453,21 +489,26 @@ void displayAllProduct() {
   int MAX_LENGTH = 100;
   FILE *fichier = fopen(fproduct, "r");
 
+  //Vérif si le fichier existe
   if (fichier == NULL) {
     printf("\nErreur lors de l'ouverture du fichier.\n");
     printf("\nFichier manquant\n");
     return;
   }
-  // Utiliser Malloc ??
+ 
   int id;
   char nom[MAX_LENGTH];
   int prix;
   int quantite;
   char Taille[MAX_LENGTH];
   int Place_stck;
+
+  //Affichage
   printf("\tTotal stock dispo:\t%d\n\n", atoi(ReadLine(1, fstock)));
   printf("\t\nProduits dont les stocks sont vides:\n");
   printf("\nID\t\tProduit\t\tPrix\t\tTaille\t\tQté\n");
+
+  //Pour chaque produit, la fct° Readline va récupérer la ligne correspondante à l'info désirée (chaque produit prend 6 lignes dans le fichier d'ou l'utilisation du "for (i)")
   for (int i = 0; i < NbrProduct(); i++) {
     id = atoi(ReadLine(1 + (6 * i), fproduct));
     strcpy(nom, ReadLine(2 + (6 * i), fproduct));
@@ -476,6 +517,7 @@ void displayAllProduct() {
     strcpy(Taille, ReadLine(4 + (6 * i), fproduct));
     Place_stck = atoi(ReadLine(6 + (6 * i), fproduct));
     if (quantite == 0) {
+      //vérif si la qty est 0
       printf("%d\t\t%s\t\t\t\t%d\t\t%s\t\t%d\n", id, nom, prix, Taille,
              quantite);
     }
@@ -483,6 +525,7 @@ void displayAllProduct() {
 
   printf("\n\n\n\tTous les produits:\n");
   printf("\nID\t\tProduit\t\tPrix\t\tTaille\t\tQté\n");
+  //Même procédé, mais cette fois affiche tous les produits
   for (int i = 0; i < NbrProduct(); i++) {
     id = atoi(ReadLine(1 + (6 * i), fproduct));
     strcpy(nom, ReadLine(2 + (6 * i), fproduct));
@@ -499,16 +542,15 @@ void displayAllProduct() {
 // Obtenir le nombre de produits totaux
 int NbrProduct() {
   int nprod;
-  Product produit;
   FILE *fp;
+  //Récupère la valeur contenue dans le fichier prodid.txt qui contient l'id du dernier produit ajouté = le nbr de produit totaux
   fp = fopen("prodid.txt", "r");
   fscanf(fp, "%d", &nprod);
   fclose(fp);
   return nprod;
 }
 
-// Modifier une information du produit // Rajouter une fonction pour faciliter
-// la modif (par rapport à l'id*(la ligne));
+// Modifier une information du produit;
 int updateProduct() {
   int choice;
   int id;
@@ -529,35 +571,44 @@ int updateProduct() {
   int qty_init_intermediaire = 0;
   int qty_init = atoi(ReadLine(5 + (6 * id), fproduct));
 
+  //Vérif si le fichier produit existe
   if (file == NULL) {
     printf("\nErreur lors de l'ouverture du fichier.\n");
     printf("\nFichier manquant\n");
     return -1;
   }
-
-  strcpy(temp_filename, "temp__");
+//création du fichier temporaire
+  strcpy(temp_filename, "temp_");
   strcat(temp_filename, fproduct);
+
+  //Choix du produit à modif
   printf("\nQuel produit voulez-vous modifier (ID):\n");
-  scanf("%d", &id);
-  while (id == 0 || id < 0 || id > NbrProduct()) {
-    fflush(stdin);
-    printf("\nMauvais code produit, veuillez réessayer\n");
-    printf("\nQuel produit voulez-vous modifier (ID):\n");
-    scanf("%d", &id);
-  }
-  //fflush(stdin); (?)
+    while(1){
+      if(scanf("%d",&id) != 1 || id <= 0 || id > NbrProduct()){
+        printf("\nMauvais code produit, veuillez réessayer\n");
+        printf("\nQuel produit voulez-vous modifier (ID):\n");
+        while (getchar() != '\n');
+      }
+      else{
+        break;
+      }
+    }
+//Choix de l'info à modif
   couleur("36");
   printf("\nQue voulez vous changer:\n1.Nom du Produit\n2.Prix du "
          "Produit\n3.Quantité\n");
   couleur("0");
+  
   while (1) {
         if (scanf("%d", &choice) != 1 || (choice != 1 && choice != 2 && choice != 3)) {
-            printf("Erreur : saisie invalide. Veuillez entrer une valeur parmi 1, 2 ou 3 : \n");
+            printf("Saisie invalide. Veuillez entrer une valeur parmi 1, 2 ou 3 : ");
             while (getchar() != '\n');
-        } else {
-            break;
+        }
+        else{
+          break;
         }
     }
+  
   if (choice == 1) { // NOM
     replace_line = 2 * id;
     fflush(stdin);
@@ -575,40 +626,38 @@ int updateProduct() {
     fflush(stdin);
     printf("\nChangement:\n");
     scanf("%s", replace);
-    int replace1 = atoi(replace);
+    int replace1 = atoi(replace); //Transforme char en int
 
     fclose(fstock_max);
+    
+    //Prend la place du produit (en fct° de la taille : S-> 1 M->2 L->3 unités de place)
     place_stck = atoi(ReadLine(6 + (6 * id), fproduct));
-    stock_base += (place_stck) * (replace1);
-    if (stock_base > stockact) {
-      printf(
-          "La capacité de stockage du magasin est dépassé. Qty trop grande\n");
-      manageProduct();
-    } else {
-      fstock_max = fopen(fstock, "w");
-      if (qty_init < replace1) {
-        qty_init_intermediaire = replace1 - (qty_init);
-        add_stck = qty_init_intermediaire * place_stck;
-        if (add_stck > qty_init_intermediaire) {
-          printf(
-              "La capacité de stockage du magasin est dépassé. Vous ne pouvez "
-              "plus ajouter de produits\n");
-          manageProduct();
-        } else {
-          stockact_interm = stockact - add_stck;
-          fprintf(fstock_max, "%d", stockact_interm);
-        }
-      } 
-      else if (qty_init > replace1) {
-        qty_init_intermediaire = (qty_init) - (replace1);
-        add_stck = qty_init_intermediaire * place_stck;
-        stockact_interm = stockact + add_stck;
-        fprintf(fstock_max, "%d", stockact_interm);
+    
+    fstock_max = fopen(fstock, "w");
+    
+    //Si la nouv. qté > à initiale -> alors on doit enlever des unités de place au stck max
+    if (qty_init < replace1) {
+        
+      qty_init_intermediaire = replace1 - (qty_init); //Différence entre nouv. qté et l'ancienne = qty. rajoutée
+      add_stck = qty_init_intermediaire * place_stck; //stock à retirer du max
+        
+      if (add_stck > qty_init_intermediaire) {
+        printf("La capacité de stockage du magasin est dépassé. Vous ne pouvez plus ajouter de produits\n");
+        manageProduct();
+      } else {
+        stockact_interm = stockact - add_stck;
+        fprintf(fstock_max, "%d", stockact_interm); //On actualise la valeur du stock max dans le fichier
       }
-      replace_line = 5 * id;
-
-      fclose(fstock_max);
+    } 
+    else if (qty_init > replace1) {
+      qty_init_intermediaire = (qty_init) - (replace1);
+      add_stck = qty_init_intermediaire * place_stck;
+      stockact_interm = stockact + add_stck;
+      fprintf(fstock_max, "%d", stockact_interm);
     }
+  replace_line = 5 * id;
+
+  fclose(fstock_max);
   } else {
     printf("\nErreur!\n");
     return -1;
@@ -775,6 +824,7 @@ int modifUsers() {
   fflush(stdin);
   printf("\nQuel utilisateur voulez modifier(format .txt):\n");
   scanf("%s", filename);
+  //sécurisation du scanf?
 
   strcpy(temp_filename, "temp");
   strcat(temp_filename, filename);
@@ -786,7 +836,7 @@ int modifUsers() {
   couleur("0");
   while (1) {
         if (scanf("%d", &choice) != 1 || (choice != 1 && choice != 2 && choice != 3)) {
-            printf("Erreur : saisie invalide. Veuillez entrer une valeur parmi 1, 2 ou 3 : \n");
+            printf("Saisie invalide. Veuillez entrer une valeur parmi 1, 2 ou 3 : \n");
             while (getchar() != '\n');
         } else {
             break;
@@ -844,7 +894,6 @@ int modifUsers() {
 void manageUsers() {
   int choice;
   int back = 0;
-  char buffer[20] = {0};
   while (1){
 
     printf("\n\n\t================= ");
@@ -861,7 +910,7 @@ void manageUsers() {
     printf("\nEntrer votre choix:\n");
     while (1) {
         if (scanf("%d", &choice) != 1 || (choice != 1 && choice != 2 && choice != 0)) {
-            printf("Erreur : saisie invalide. Veuillez entrer une valeur parmi 1, 2 ou 0 : \n");
+            printf("Saisie invalide. Veuillez entrer une valeur parmi 1, 2 ou 0 : \n");
             while (getchar() != '\n');
         } else {
             break;
@@ -900,7 +949,6 @@ int modifMesInfos() {
   char prenom[MAX_LENGTH];
   char age[MAX_LENGTH];
   char email1[MAX_LENGTH];
-  char buffer1[20] = {0};
 
   FILE *fc = fopen(email, "r");
   system("clear");
@@ -928,7 +976,7 @@ int modifMesInfos() {
   couleur("0");
   while (1) {
         if (scanf("%d", &choice) != 1 || (choice != 1 && choice != 2 && choice != 3 && choice != 4)) {
-            printf("Erreur : saisie invalide. Veuillez entrer une valeur parmi 1, 2, 3 ou 4 : \n");
+            printf("Saisie invalide. Veuillez entrer une valeur parmi 1, 2, 3 ou 4 : \n");
             while (getchar() != '\n');
         } else {
             break;
@@ -1003,14 +1051,17 @@ void Creapanier() {
   int aqty_prod;
   int aplace_stck_prod;
   int aid_prod;
-  char buffer[20] = {0};
 
   printf("\nQuel produit voulez-vous ajouter au panier (ID) :\n");
-  scanf("%d", &ID_prod);
-  while (ID_prod < 0 || ID_prod > NbrProduct()) {
-    printf("\nErreur mauvais ID, veuillez recommencer:\n");
-    printf("\nQuel produit voulez-vous ajouter au panier (ID) :\n");
-    scanf("%d", &ID_prod);
+  while (1){
+    if(scanf("%d",&ID_prod) != 1 ||ID_prod <= 0 || ID_prod > NbrProduct()){
+      printf("\nErreur mauvais ID, veuillez recommencer:\n");
+      printf("\nQuel produit voulez-vous ajouter au panier (ID) :\n");
+      while (getchar() != '\n');
+    }
+    else{
+      break;
+    }
   }
   ID_prod--;
   printf("%s", ReadLine(5 + (ID_prod * 6), fproduct));
@@ -1021,13 +1072,27 @@ void Creapanier() {
   aqty_prod = atoi(ReadLine(5 + (ID_prod * 6), fproduct));
   aplace_stck_prod = atoi(ReadLine(6 + (ID_prod * 6), fproduct));
 
-  printf("\nQuel quantité voulez-vous acheter;\n");
-  scanf("%d", &aqty_achat);
+  printf("\nQuel quantité voulez-vous acheter?\n");
+  //scanf("%d", &aqty_achat);
 
-  while (aqty_achat > aqty_prod) {
-    printf("\nErreur, quantité trop grande, veuilez recommencer:\n");
-    printf("\nQuel quantité voulez-vous acheter;\n");
-    scanf("%d", &aqty_achat);
+  //while (aqty_achat > aqty_prod || aqty_achat < 1) {
+  while(1){
+    if(scanf("%d",&aqty_achat) != 1){
+      printf("\nErreur,veuillez saisir un nombre:\n");
+      while (getchar() != '\n');
+  }
+    else if(aqty_achat < 1){
+      printf("\nErreur, quantité trop petite, veuilez recommencer:\n");
+      while (getchar() != '\n');
+    }
+
+    else if(aqty_achat > aqty_prod){
+      printf("\nErreur, quantité trop grande, veuilez recommencer:\n");
+      while (getchar() != '\n');
+    }
+    else{
+      break;
+    }
   }
   strcpy(nom_panier, email);
   strcat(nom_panier, "_panier.txt");
@@ -1045,10 +1110,10 @@ void Creapanier() {
   couleur("0");
   while (1) {
         if (scanf("%d", &choix_ach) != 1 || (choix_ach != 1 && choix_ach != 2)) {
-            printf("Erreur : saisie invalide. Veuillez entrer une valeur parmi 1 ou 2 : \n");
-            while (getchar() != '\n'); //
+            printf("Saisie invalide. Veuillez entrer une valeur parmi 1 ou 2 : \n");
+            while (getchar() != '\n');
         } else {
-            break; //
+            break;
         }
     }
   if (choix_ach == 2) {
@@ -1085,9 +1150,9 @@ void purchaseProduct() {
   while (1) {
         if (scanf("%d", &choix_ach) != 1 || (choix_ach != 1 && choix_ach != 2)) {
             printf("Erreur : saisie invalide. Veuillez entrer une valeur parmi 1 ou 2 : \n");
-            while (getchar() != '\n'); //
+            while (getchar() != '\n');
         } else {
-            break; //
+            break;
         }
     }
 
@@ -1180,7 +1245,6 @@ void openpanier() {
   char quantite[MAX_LENGTH];
   char Taille[MAX_LENGTH];
   char Place_stck[MAX_LENGTH];
-  char buffer[20] = {0};
   couleur("34");
   printf("Panier"); // Bienvenue Panier
   couleur("0");
@@ -1203,10 +1267,10 @@ void openpanier() {
   couleur("0");
   while (1) {
         if (scanf("%d", &choix_panier) != 1 || (choix_panier != 1 && choix_panier != 2)) {
-            printf("Erreur : saisie invalide. Veuillez entrer une valeur parmi 1 ou 2 : \n");
-            while (getchar() != '\n'); //
+            printf("Saisie invalide. Veuillez entrer une valeur parmi 1 ou 2 : \n");
+            while (getchar() != '\n');
         } else {
-            break; //
+            break;
         }
     }
 
@@ -1226,7 +1290,6 @@ void seDesinscrire() {
   int choice;
   char panier_client[100];
   char historique_client[100];
-  char buffer[20] = {0};
   printf("\n\tVoulez-vous vraiment vous désinscrire:\n");
   couleur("32");
   printf("\n\t1.OUI");
@@ -1310,10 +1373,10 @@ void EspaceClient() {
   couleur("0");
 
   printf("\n\n\t=================================================\n\n");
-  printf("\nVeuillez entrer votre choix:\n");
+  printf("\nVeuillez entrer votre choix : ");
   while (1) {
         if (scanf("%d", &choice) != 1 || (choice != 1 && choice != 2 && choice != 3 && choice != 4 && choice != 5 && choice != 0)) {
-            printf("Erreur : saisie invalide. Veuillez entrer une valeur parmi 1, 2 ou 3 : \n");
+            printf("Saisie invalide. Veuillez entrer une valeur parmi 1, 2, 3, 4, 5 ou 0 : \n");
             while (getchar() != '\n');
         } else {
             break;
@@ -1363,7 +1426,7 @@ void EspaceAdmin() {
   printf("\nVeuillez entrer votre choix:\n");
   while (1) {
         if (scanf("%d", &choice) != 1 || (choice != 1 && choice != 2 && choice != 0)) {
-            printf("Erreur : saisie invalide. Veuillez entrer une valeur parmi 1, 2 ou 3 : \n");
+            printf("Erreur : saisie invalide. Veuillez entrer une valeur parmi 1, 2 ou 0 : \n");
             while (getchar() != '\n');
         } else {
             break;
@@ -1403,7 +1466,6 @@ void GestionMode() {
 int DefaultScreen() {
   system("clear");
   int choice;
-  char buffer[20] = {0};
   printf("\n\n\t================= ");
   couleur("34");
   printf("Bienvenue dans CY-SHOP ");
@@ -1411,7 +1473,7 @@ int DefaultScreen() {
   printf("=================\n");
   printf("\t================ ");
   couleur("33");
-  printf("La Mode à portée de Main ");
+  printf("La Mode à portée de main ");
   couleur("0");
   printf("=================\n\n");
   couleur("36");
@@ -1421,11 +1483,11 @@ int DefaultScreen() {
   couleur("0");
 
   // Asking for choice
-  printf("\n\n\nEntrez votre choix : \n");
+  printf("\n\n\nEntrez votre choix : ");
   while (1) {
         if (scanf("%d", &choice) != 1 || (choice != 1 && choice != 2 && choice != 3)) {
-            printf("Erreur : saisie invalide. Veuillez entrer une valeur parmi 1, 2 ou 3 : \n");
-            while (getchar() != '\n');
+            printf("Saisie invalide. Veuillez entrer une valeur parmi 1, 2 ou 3 : ");
+            while (getchar() != '\n'); //
         } else {
             break;
         }

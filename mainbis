@@ -535,13 +535,10 @@ int updateProduct() {
   strcpy(temp_filename, "temp__");
   strcat(temp_filename, fproduct);
   printf("\nQuel produit voulez-vous modifier (ID):\n");
-  //scanf("%d", &id);
-  //while (id == 0 || id < 0 || id > NbrProduct()) {
     while(1){
       if(scanf("%d",&id) != 1 || id <= 0 || id > NbrProduct()){
         printf("\nMauvais code produit, veuillez réessayer\n");
         printf("\nQuel produit voulez-vous modifier (ID):\n");
-        scanf("%d", &id);
         while (getchar() != '\n');
       }
       else{
@@ -559,7 +556,9 @@ int updateProduct() {
         if (scanf("%d", &choice) != 1 || (choice != 1 && choice != 2 && choice != 3)) {
             printf("Saisie invalide. Veuillez entrer une valeur parmi 1, 2 ou 3 : ");
             while (getchar() != '\n');
-            break;
+        }
+        else{
+          break;
         }
     }
   if (choice == 1) { // NOM
@@ -1008,13 +1007,16 @@ void Creapanier() {
   int aid_prod;
 
   printf("\nQuel produit voulez-vous ajouter au panier (ID) :\n");
-  scanf("%d", &ID_prod);
-  while (ID_prod < 0 || ID_prod > NbrProduct()) {
-    printf("\nErreur mauvais ID, veuillez recommencer:\n");
-    printf("\nQuel produit voulez-vous ajouter au panier (ID) :\n");
-    scanf("%d", &ID_prod);
+  while (1){
+    if(scanf("%d",&ID_prod) != 1 ||ID_prod <= 0 || ID_prod > NbrProduct()){
+      printf("\nErreur mauvais ID, veuillez recommencer:\n");
+      printf("\nQuel produit voulez-vous ajouter au panier (ID) :\n");
+      while (getchar() != '\n');
+    }
+    else{
+      break;
+    }
   }
-  //sécurisation scanf ?
   ID_prod--;
   printf("%s", ReadLine(5 + (ID_prod * 6), fproduct));
   aid_prod = atoi(ReadLine(1 + (ID_prod * 6), fproduct));
@@ -1024,13 +1026,27 @@ void Creapanier() {
   aqty_prod = atoi(ReadLine(5 + (ID_prod * 6), fproduct));
   aplace_stck_prod = atoi(ReadLine(6 + (ID_prod * 6), fproduct));
 
-  printf("\nQuel quantité voulez-vous acheter;\n");
-  scanf("%d", &aqty_achat);
+  printf("\nQuel quantité voulez-vous acheter?\n");
+  //scanf("%d", &aqty_achat);
 
-  while (aqty_achat > aqty_prod) {
-    printf("\nErreur, quantité trop grande, veuilez recommencer:\n");
-    printf("\nQuel quantité voulez-vous acheter;\n");
-    scanf("%d", &aqty_achat);
+  //while (aqty_achat > aqty_prod || aqty_achat < 1) {
+  while(1){
+    if(scanf("%d",&aqty_achat) != 1){
+      printf("\nErreur,veuillez saisir un nombre:\n");
+      while (getchar() != '\n');
+  }
+    else if(aqty_achat < 1){
+      printf("\nErreur, quantité trop petite, veuilez recommencer:\n");
+      while (getchar() != '\n');
+    }
+
+    else if(aqty_achat > aqty_prod){
+      printf("\nErreur, quantité trop grande, veuilez recommencer:\n");
+      while (getchar() != '\n');
+    }
+    else{
+      break;
+    }
   }
   strcpy(nom_panier, email);
   strcat(nom_panier, "_panier.txt");

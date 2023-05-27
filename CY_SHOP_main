@@ -156,7 +156,7 @@ int valid(char t_name[], char t_prenom[], char t_email[], char t_password1[], ch
   for (i = 0; t_name[i] != '\0'; i++) { //Tant qu'il reste des char dans t_name 
     while (!((t_name[i] >= 'a' && t_name[i] <= 'z') || (t_name[i] >= 'A' && t_name[i] <= 'Z'))) { //Vérif si le Nom composé que de lettres
       printf("\nVeuillez entrer un nom valide!\n");
-      fflush(stdin);
+     
       printf("Entrer votre prénom:\n");
       scanf("%s", t_name);
     }
@@ -167,7 +167,7 @@ int valid(char t_name[], char t_prenom[], char t_email[], char t_password1[], ch
     while (!((t_prenom[i] >= 'a' && t_prenom[i] <= 'z') ||     //Même chose que pour le Nom
              (t_prenom[i] >= 'A' && t_prenom[i] <= 'Z'))) {
       printf("\nVeuillez entrer un prénom valide!\n");
-      fflush(stdin);
+      
       scanf("%s", t_prenom);
     }
   }
@@ -610,19 +610,19 @@ int updateProduct() {
   
   if (choice == 1) { // NOM
     replace_line = 2 * id;
-    fflush(stdin);
+    
     printf("\nChangement:\n");
     scanf("%s", replace);
 
   } else if (choice == 2) { // PRIX
-    fflush(stdin);
+    
     printf("\nChangement:\n");
     scanf("%s", replace);
     replace_line = 3 * id;
 
   } else if (choice == 3) { // QTY
     printf("\n%d", id);
-    fflush(stdin);
+    
     printf("\nChangement:\n");
     scanf("%s", replace);
     int replace1 = atoi(replace); //Transforme char en int
@@ -688,7 +688,7 @@ int updateProduct() {
   return 0;
 }
 
-// BESOIN D'UNE VERSION DE UPDATEPRODUCT() SANS LE QUESTIONNAIRE DU DEBUT
+// BESOIN D'UNE VERSION DE UPDATEPRODUCT() SANS LE QUESTIONNAIRE DU DEBUT // Update Product pque pour les qté lorsque l'on fait un achat
 void updatePRODUCTAchat(int id, int nouvQty) {
   FILE *file = fopen(fproduct, "r"), *temp;
   ;
@@ -706,7 +706,9 @@ void updatePRODUCTAchat(int id, int nouvQty) {
 
   strcpy(temp_filename, "temp__");
   strcat(temp_filename, fproduct);
-
+  
+//Lors de l'achat, la qty acheté doit être déduit de la qty disponible
+//Même processus que uptdateProduct()
   replace_line = 5 + (6 * id);
   sprintf(replace, "%d", nouvQty);
   
@@ -742,6 +744,8 @@ void majProductachat() {
   strcpy(nom_panier, email);
   strcat(nom_panier, "_panier.txt");
   FILE *panier = fopen(nom_panier, "r");
+
+  //Vérif si 
   if (panier == NULL) {
     printf("Erreur : Impossible d'ouvrir le fichier\n");
     EspaceClient();
@@ -793,6 +797,7 @@ void majProductachat() {
 void displayAllUsers() {
   char fname[100];
   DIR *d;
+  //Le pointeur va pointer tous les fichier dans le directory, si le fichier est un email -> client
   printf("\nVoici la liste des comptes utilisateurs enregistrés:\n");
   struct dirent *dir;
   d = opendir(".");
@@ -822,7 +827,7 @@ int modifUsers() {
   char replace[MAX_LINE];
   int replace_line = 0;
   
-  fflush(stdin);
+  
   printf("\nQuel utilisateur voulez modifier(format .txt):\n");
   scanf("%s", filename);
   //sécurisation du scanf?
@@ -830,7 +835,6 @@ int modifUsers() {
   strcpy(temp_filename, "temp");
   strcat(temp_filename, filename);
 
-  fflush(stdin);
   couleur("36");
   printf("\nQue voulez vous changer:\n1.Nom de l'utilisateur\n2.Prenom de "
          "l'utilisateur\n3.Age de l'utilisateur\n");
@@ -857,7 +861,7 @@ int modifUsers() {
       printf("\nErreur!\n");
   }
 
-  fflush(stdin);
+  
   printf("Remplacement du texte:\n");
   scanf("%s", replace);
 
@@ -953,7 +957,7 @@ int modifMesInfos() {
 
   FILE *fc = fopen(email, "r");
   system("clear");
-  fflush(stdin);
+  
   printf("\nVoici Vos Informations Clients:\n");
   while (fscanf(fc, "%s", nom) == 1) {
     fscanf(fc, " %[^\n]", prenom);
@@ -970,7 +974,7 @@ int modifMesInfos() {
   strcpy(temp_filename, "temp");
   strcat(temp_filename, filename);
 
-  fflush(stdin);
+  
   couleur("36");
   printf(
       "\nQue voulez vous changer:\n1.Nom\n2.Prenom\n3.Age\n4.Mot de Passe\n");
@@ -1003,7 +1007,6 @@ int modifMesInfos() {
   }
 
 
-  fflush(stdin);
   printf("Remplacement du texte:\n");
   scanf("%s", replace);
 
@@ -1249,7 +1252,7 @@ void openpanier() {
   couleur("34");
   printf("Panier"); // Bienvenue Panier
   couleur("0");
-  fflush(stdin);
+  
   printf("\n\nID\tProduit\tPrix\tTaille\tQté\n");
   while (fscanf(fichier, "%s", id) == 1) {
     fscanf(fichier, " %[^\n]", nom);

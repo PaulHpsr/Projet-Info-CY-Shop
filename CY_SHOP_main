@@ -30,7 +30,6 @@ typedef struct {
 } Product;
 
 
-
 // Déclaration des fonction (dans l'ordre)//
 void signup();
 void Crea_Client();
@@ -80,7 +79,7 @@ void signup() {
   int valide;  
   system("clear");
 
-//Ecran d'inscripation
+//Ecran d'inscription
   
   printf("\n\n\t=================Inscription à CY-SHOP=================\n\n");
 
@@ -578,7 +577,7 @@ int updateProduct() {
     return -1;
   }
 //création du fichier temporaire
-  strcpy(temp_filename, "temp_");
+  strcpy(temp_filename, "temp__");
   strcat(temp_filename, fproduct);
 
   //Choix du produit à modif
@@ -649,7 +648,7 @@ int updateProduct() {
         fprintf(fstock_max, "%d", stockact_interm); //On actualise la valeur du stock max dans le fichier
       }
     } 
-    else if (qty_init > replace1) {
+    else if (qty_init > replace1) { //On fait la même chose mais cette fois-ci qty initiale > nouv. qté -> on rajoute de la place au stock dispo
       qty_init_intermediaire = (qty_init) - (replace1);
       add_stck = qty_init_intermediaire * place_stck;
       stockact_interm = stockact + add_stck;
@@ -666,6 +665,7 @@ int updateProduct() {
   file = fopen(fproduct, "r");
   temp = fopen(temp_filename, "w");
 
+  //On copie les lignes du fichier product dans le fichier temporaire sauf la ligne à modif -> on remplace avec le nouv.
   bool keep_reading = true;
   int current_line = 1;
   do {
@@ -697,6 +697,7 @@ void updatePRODUCTAchat(int id, int nouvQty) {
   char replace[100];
   int replace_line = 0;
 
+  //Vérif si le fichier existe
   if (file == NULL) {
     printf("\nErreur lors de l'ouverture du fichier.\n");
     printf("\nFichier manquant\n");

@@ -51,7 +51,7 @@ Le mode client permet :
 ### Compiler le programme :
 (Sous linux)
 Afin d'utiliser le programme vous devez d'abord le compiler avec la commande :
-<code> make </code>   (dans le terminal)
+<code>make</code>   (dans le terminal)
 
 ### Exécuter le programme :
 Afin d'éxécuter le programme vous devez utiliser la commande :

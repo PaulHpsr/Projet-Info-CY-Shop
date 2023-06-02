@@ -8,7 +8,7 @@
 #include <time.h>
 #include <ctype.h>
 // Bibliothèques
-char email[100];
+
 
 // Structures
 
@@ -106,11 +106,11 @@ void signup() {
   scanf("%d", &t_age);
 
   //Voir si les infos entrées sont valides
-  x = valid(t_name, t_password1, t_prenom, t_email, t_age);
+  x = valid(t_name,t_password1,t_prenom,t_email,t_age);
   if (x == 1) {
 
     // Processus de crea de fiche client
-    Crea_Client();
+    Crea_Client(t_name,t_prenom,t_email,t_password1,t_password2,t_age);
 
     // Se connecter
     GestionMode();
@@ -251,7 +251,7 @@ char adminp[10] = "a";
   int i;
   FILE *fc;
   int count = 0;
-  char email[100];
+
   char email2[5] = ".txt";
   char pasword[100];
   char pasword2[100];
@@ -342,7 +342,6 @@ int getID() {
 
 // Interface de Management
 void manageProduct() {
-  system("clear");
   int choice;
   int back = 0;
 
@@ -506,7 +505,7 @@ void displayAllProduct() {
   printf("\tTotal stock dispo:\t%d\n\n", atoi(ReadLine(1, fstock)));
   printf("\t\nProduits dont les stocks sont vides:\n");
   printf("\nID\t\tProduit\t\tPrix\t\tTaille\t\tQté\n");
-
+fopen(fproduct,"a");
   //Pour chaque produit, la fct° Readline va récupérer la ligne correspondante à l'info désirée (chaque produit prend 6 lignes dans le fichier d'ou l'utilisation du "for (i)")
   for (int i = 0; i < NbrProduct(); i++) {
     id = atoi(ReadLine(1 + (6 * i), fproduct));
@@ -521,7 +520,6 @@ void displayAllProduct() {
              quantite);
     }
   }
-
   printf("\n\n\n\tTous les produits:\n");
   printf("\nID\t\tProduit\t\tPrix\t\tTaille\t\tQté\n");
   //Même procédé, mais cette fois affiche tous les produits
@@ -741,8 +739,10 @@ void updatePRODUCTAchat(int id, int nouvQty) {
 void majProductachat() {
   int compt = 0;
   char nom_panier[100];
+  printf("%s",email);
   strcpy(nom_panier, email);
   strcat(nom_panier, "_panier.txt");
+   printf("%s",nom_panier);
   FILE *panier = fopen(nom_panier, "r");
 
   //Vérif si 

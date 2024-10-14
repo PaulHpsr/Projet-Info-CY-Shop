@@ -44,8 +44,7 @@ Le programme ne permet pas la suppression directe d'un produit via l'interface. 
 - **Éditeurs de Code** : Replit, Atom
 - **Langage** : C
 
-## Auteurs
-Développé par les étudiants de **CY-Tech | MI2** :
-- **Paul HOPSORE**
-- **Corentin PELLERIN**
-- **Athalin LE CALVEZ**
+## Bibliographie
+- [Documentation du langage C](https://en.cppreference.com/w/c)
+- [Makefile Tutorial](https://www.gnu.org/software/make/manual/make.html)
+- [Guide de style de code C](https://google.github.io/styleguide/cguide.html)

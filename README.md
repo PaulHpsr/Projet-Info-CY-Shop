@@ -1,3 +1,5 @@
+![Image d'en-tête](Cy_shop_img.png)
+
 # Projet CY_Shop | Application de Gestion de Stock et de Clients
 
 Programme développé en langage C permettant de gérer les stocks et les données clients d'une boutique en ligne, avec la possibilité de naviguer à travers les produits et d'effectuer des achats. Le programme propose un mode "Gestion" pour les administrateurs et un mode "Client" pour les utilisateurs, chacun offrant des fonctionnalités spécifiques.

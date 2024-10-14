@@ -1,68 +1,49 @@
-# Projet-Info-CY-Shop | Projet d'informatique PreIng1 CY_Shop_v1 MI2-5
+# Projet CY_Shop | Application de Gestion de Stock et de Clients
 
-## Programme codé en language C, qui permet la gestion de stocks, des données clients. Mais aussi l'achat de produit.
+Programme développé en langage C permettant de gérer les stocks et les données clients d'une boutique en ligne, avec la possibilité de naviguer à travers les produits et d'effectuer des achats. Le programme propose un mode "Gestion" pour les administrateurs et un mode "Client" pour les utilisateurs, chacun offrant des fonctionnalités spécifiques.
 
-## Pré-requis 
+## Fonctionnalités Clés
 
-Il est nécessaire d'avoir ces fichiers afin que le programme fonctionne correctement :
-- main.c
-- couleurs.h
-- ReadSpecificLine.h
-- stockmax.txt
-- Makefile
+### Gestion de l'Inventaire
+- **Gestion des Produits** : Ajouter, afficher et modifier les informations des produits (nom, prix, taille, quantité).
+- **Gestion des Clients** : Consulter et mettre à jour les informations des clients, y compris le nom, l'âge, le panier d'achat et l'historique des achats.
 
-## Codé avec 
+### Mode Client
+- **Inscription et Connexion** : Les utilisateurs peuvent s'inscrire et se connecter avec leurs identifiants.
+- **Navigation dans la Boutique** : Parcourir les produits disponibles, consulter le panier, finaliser les achats et accéder à l'historique des achats.
+- **Gestion du Profil** : Mettre à jour les informations personnelles ou se désinscrire du système.
 
-- Replit 
-- Atom
+### Mode Gestion
+- **Accès Administrateur** : Accessible avec les identifiants suivants :
+  - **Email** : `admin@gmail.com`
+  - **Mot de Passe** : `a`
+- Permet de gérer les produits et les données des clients de manière avancée.
 
-## Description
+## Installation du Projet
 
-Ce projet permet de gérer un magasin virtuel et permet aux utilisateurs de naviguer à travers les produits mais aussi d'effectuer des achats.
-Le programme stock et permet la modification les données produits et clients, suit l'évolution de la place disponible dans les stocks du magasin.
+### Prérequis
+Assurez-vous que les fichiers suivants sont présents pour que le programme fonctionne correctement :
+- `main.c`
+- `couleurs.h`
+- `ReadSpecificLine.h`
+- `stockmax.txt`
+- `Makefile`
 
-## Utilisation
+### Compilation et Exécution
+- **Compiler** : Utilisez la commande `make` dans le terminal (sous Linux).
+- **Exécuter le Programme** : Lancez le programme avec `./CY_SHOP_main`.
 
-Le programme permet à l'utilisateur d'accéder soit au mode "Gestion" soit au mode "Client" en fonction de la manière dont celui-ci se connecte
-### Mode Gestion : 
-L'utilisateur doit se connecter avec les logs suivant : - email : admin@gmail.com
-                                                        - mdp : a
-                                                     
- Le mode gestion permet : 
- - Gérer les produits
-    - Ajouter un produit
-    - Afficher la liste des produits
-    - Modifier les informations d'un produit (nom, prix, taille, qté)
- - Gérer les clients
-    - Modifier une informations d'un Client (nom, prenom, age)
-    - Afficher la liste des clients inscrits (+leurs panier et historique)
+## Limitations
+Le programme ne permet pas la suppression directe d'un produit via l'interface. Si un produit est supprimé manuellement depuis les fichiers `.txt` (`prodid.txt`, `product.txt`, `stockmax.txt`), certaines fonctionnalités pourraient ne plus fonctionner correctement.
 
-### Mode Client :
+## Développement
 
-L'utilisateur doit d'abord s'inscrire puis se connecter avec les logs qu'il à utilisé pour s'inscrire.
-
-Le mode client permet :
-- Modifier vos informations Clients
-- Voir les Produits Disponibles
-- Voir Votre Panier / Finaliser vos achats
-- Voir Votre Historique
-- Se désinscrire
-
-### Compiler le programme :
-(Sous linux)
-Afin d'utiliser le programme vous devez d'abord le compiler avec la commande :
-<code>make</code>   (dans le terminal)
-
-### Exécuter le programme :
-Afin d'éxécuter le programme vous devez utiliser la commande :
-./CY_SHOP_main
-
-## Limitations fonctionnelles
-
-Nous n'avons pas mis à disposition un moyen de supprimer un produit de la liste à l'aide du programme, ainsi si vous supprimez manuellement le produit directement depuis le fichier .txt certaines fonctionnalitées du projet ne fonctionneront pas. (cela est valables pour les fichier : prodid.txt , product.txt et stockmax.txt)
+### Outils Utilisés
+- **Éditeurs de Code** : Replit, Atom
+- **Langage** : C
 
 ## Auteurs
-CY-Tech | MI2
-- Paul HOPSORE
-- Corentin PELLERIN
-- Athalin LE CALVEZ
+Développé par les étudiants de **CY-Tech | MI2** :
+- **Paul HOPSORE**
+- **Corentin PELLERIN**
+- **Athalin LE CALVEZ**
